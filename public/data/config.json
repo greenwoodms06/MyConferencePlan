@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "conferenceId": "siggraph-2026",
+  "dataVersion": "2026-07-20",
+  "generatedAt": "2026-07-20T07:24:37Z",
+  "name": "SIGGRAPH 2026",
+  "location": "Los Angeles Convention Center, 1201 S Figueroa St, Los Angeles, CA 90015",
+  "timezone": "America/Los_Angeles",
+  "days": [
+    {
+      "key": "2026-07-19",
+      "label": "Sunday",
+      "date": "19 Jul"
+    },
+    {
+      "key": "2026-07-20",
+      "label": "Monday",
+      "date": "20 Jul"
+    },
+    {
+      "key": "2026-07-21",
+      "label": "Tuesday",
+      "date": "21 Jul"
+    },
+    {
+      "key": "2026-07-22",
+      "label": "Wednesday",
+      "date": "22 Jul"
+    },
+    {
+      "key": "2026-07-23",
+      "label": "Thursday",
+      "date": "23 Jul"
+    }
+  ],
+  "accessLevels": [
+    {
+      "id": "FCS",
+      "label": "Full Conference Supporter"
+    },
+    {
+      "id": "FC",
+      "label": "Full Conference"
+    },
+    {
+      "id": "E",
+      "label": "Experience"
+    },
+    {
+      "id": "D",
+      "label": "Discover"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "ACM SIGGRAPH 365",
+      "label": "ACM SIGGRAPH 365"
+    },
+    {
+      "id": "ACM SIGGRAPH Award Talks",
+      "label": "ACM SIGGRAPH Award Talks"
+    },
+    {
+      "id": "Appy Hour",
+      "label": "Appy Hour"
+    },
+    {
+      "id": "Art Gallery",
+      "label": "Art Gallery"
+    },
+    {
+      "id": "Art Paper",
+      "label": "Art Paper"
+    },
+    {
+      "id": "Birds of a Feather",
+      "label": "Birds of a Feather"
+    },
+    {
+      "id": "Computer Animation Festival",
+      "label": "Computer Animation Festival"
+    },
+    {
+      "id": "Course",
+      "label": "Course"
+    },
+    {
+      "id": "Educator's Day Session",
+      "label": "Educator's Day Session"
+    },
+    {
+      "id": "Educator's Forum",
+      "label": "Educator's Forum"
+    },
+    {
+      "id": "Emerging Technologies",
+      "label": "Emerging Technologies"
+    },
+    {
+      "id": "Exhibition",
+      "label": "Exhibition"
+    },
+    {
+      "id": "Frontiers",
+      "label": "Frontiers"
+    },
+    {
+      "id": "Games Summit",
+      "label": "Games Summit"
+    },
+    {
+      "id": "Immersive Pavilion",
+      "label": "Immersive Pavilion"
+    },
+    {
+      "id": "Industry Session",
+      "label": "Industry Session"
+    },
+    {
+      "id": "Keynote Speaker",
+      "label": "Keynote Speaker"
+    },
+    {
+      "id": "Panel",
+      "label": "Panel"
+    },
+    {
+      "id": "Pathfinders",
+      "label": "Pathfinders"
+    },
+    {
+      "id": "Poster",
+      "label": "Poster"
+    },
+    {
+      "id": "Production Session",
+      "label": "Production Session"
+    },
+    {
+      "id": "Real-Time Live!",
+      "label": "Real-Time Live!"
+    },
+    {
+      "id": "Spatial Storytelling",
+      "label": "Spatial Storytelling"
+    },
+    {
+      "id": "Stage Session",
+      "label": "Stage Session"
+    },
+    {
+      "id": "Talks",
+      "label": "Talks"
+    },
+    {
+      "id": "Technical Paper",
+      "label": "Technical Paper"
+    },
+    {
+      "id": "Technical Workshop",
+      "label": "Technical Workshop"
+    }
+  ]
+}
