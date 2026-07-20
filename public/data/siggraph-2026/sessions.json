@@ -52,9 +52,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-talks-talking-about-something-else",
@@ -86,9 +84,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-ai-for-creative-visual-content-generation-editing-and-understanding-cveu-2026",
@@ -124,9 +120,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "ai-tools"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-an-introduction-to-neural-shading",
@@ -162,10 +156,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "neural",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-workshop-asiagraphics-workshop-on-neural-graphics-processing",
@@ -228,9 +219,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-frontiers-frontier-workshops-digital-twins-for-science-and-industry",
@@ -311,9 +300,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-3d-geometry--2026-07-19",
@@ -332,9 +319,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-animation-simulation--2026-07-19",
@@ -353,10 +338,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-art-design--2026-07-19",
@@ -394,9 +376,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-display-optics",
@@ -415,9 +395,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "display"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-images-video-computer-vision--2026-07-19",
@@ -474,9 +452,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-acm-siggraph-opportunities-and-programs-for-educators-part-1",
@@ -538,9 +514,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-acm-siggraph-opportunities-and-programs-for-educators-part-2",
@@ -594,9 +568,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-games-summit-game-audio-lasagna-building-layers-to-create-new-sonic-worlds",
@@ -625,9 +597,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-panel-advancing-virtual-production-technical-innovations-and-collaborative-pipelines-for-film-tv-live-events",
@@ -671,9 +641,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-curves-for-technical-artists",
@@ -717,9 +685,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-production-session-we-re-all-in-this-together-the-making-of-disney-and-pixar-s-hoppers",
@@ -821,11 +787,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "ai-tools",
-      "production",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-dac-siggraph-2026-creative-content-overview",
@@ -896,9 +858,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-computer-animation-festival-animation-theater-1-open-worlds",
@@ -918,9 +878,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-devops-in-production",
@@ -945,9 +903,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-games-summit-performance-capture-at-scale-building-a-pipeline-for-battlefield-6-cinematics",
@@ -972,10 +928,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "capture",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-graphics-developer-tools-roadmap-agentic-ai-and-beyond-first-offering",
@@ -995,9 +948,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-talks-between-the-frames",
@@ -1290,10 +1241,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-beyond-eyeballing-the-need-for-standardized-assessment-in-ai-driven-rendering",
@@ -1322,10 +1270,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "ai-tools",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-siggraph-for-beginners-welcome-to-the-conference",
@@ -1454,9 +1399,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-how-to-build-end-to-end-physical-ai-systems-for-robots",
@@ -1513,10 +1456,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-hands-on-lab-ai-assisted-graphics-profiling-with-nsight-systems-first-offering",
@@ -1536,10 +1476,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-production-session-research-to-reality-scaling-generative-ai-for-the-wizard-of-oz-at-sphere",
@@ -1583,10 +1520,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "ai-tools",
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-siggraph-for-beginners-meet-greet",
@@ -1707,11 +1641,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "ai-tools",
-      "neural",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-siggraph-art-party-joint-event-by-dac-art-paper-art-gallery",
@@ -1861,9 +1791,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-pathfinders-pathfinders--2026-07-20",
@@ -1897,9 +1825,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-beyond-computational-design-design-intelligence-and-the-future-of-creative-systems",
@@ -2024,9 +1950,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-digital-humans-virtual-try-on",
@@ -2042,9 +1966,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-a-whirlwind-introduction-to-computer-graphics",
@@ -2124,9 +2046,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-frontiers-frontiers-workshop-quantum-machine-learning-bridging-quantum-computing-machine-learning",
@@ -2274,9 +2194,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-animation-simulation--2026-07-20",
@@ -2295,10 +2213,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-art-design--2026-07-20",
@@ -2336,9 +2251,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-displays-optics--2026-07-20",
@@ -2357,9 +2270,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "display"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-images-video-computer-vision--2026-07-20",
@@ -2416,9 +2327,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-can-ai-judge-its-own-work-selfassessment-and-trust-in-creative-ai-pipelines",
@@ -2443,9 +2352,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-hands-on-lab-ai-assisted-graphics-debugging-with-nsight-graphics-second-offering",
@@ -2465,10 +2372,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-openexr",
@@ -2591,10 +2495,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "education",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-siggraph-thesis-fast-forward",
@@ -2748,9 +2649,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-learning-for-cad",
@@ -2810,9 +2709,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-generative-3d-editing",
@@ -2828,9 +2725,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-holography-displays",
@@ -2846,10 +2741,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "display",
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-talks-pull-the-strings",
@@ -2881,10 +2773,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-aswf-machine-learning-working-group",
@@ -2953,9 +2842,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "education"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-siggraph-asia-2026",
@@ -3025,9 +2912,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "fabrication"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-flashover-spatial-storytelling-of-wildfire-from-memory-to-spatial-experience",
@@ -3064,9 +2949,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-hands-on-lab-ai-assisted-graphics-profiling-with-nsight-systems-second-offering",
@@ -3086,10 +2969,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-inside-dac-creative-connections-across-siggraphs-digital-arts-community",
@@ -3196,9 +3076,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-la-folded-a-cybernetic-mirage--2026-07-20",
@@ -3267,9 +3145,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-unc-computer-science-siggraph-alumni-lunch",
@@ -3319,9 +3195,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-educator-s-day-session-epic-games-preparing-students-for-real-time-the-hidden-production-shift-in-3d-animation",
@@ -3340,12 +3214,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "education",
-      "games",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-behind-the-scenes-at-the-new-york-times-r-d-spatial-storytelling",
@@ -3374,9 +3243,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-dac-sparks-in-review-digital-art-and-se-asia-performance-immateriality-interabilities-artificial-life-ai-in-filmmaking-and-animism",
@@ -3556,9 +3423,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-educator-s-day-session-sidefx-learning-matters-certification-proves-it",
@@ -3602,9 +3467,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-out-of-the-ashes-a-work-in-progress-spatial-story-of-the-human-cost-of-climate-change",
@@ -3633,10 +3496,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans",
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-aces",
@@ -3719,10 +3579,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "neural",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-gfxreconstruct-an-engine-for-vulkan-debugging-and-profiling",
@@ -3747,9 +3604,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-3d-gaussian-splatting-i",
@@ -3765,9 +3620,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "gaussian-splatting"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-faces-avatars",
@@ -3783,9 +3636,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-speedy-3d",
@@ -3941,9 +3792,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-frontiers-frontiers-workshop-ctrl-g-controllable-generative-graphics-for-games",
@@ -3984,10 +3833,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games",
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-best-of-eurographics-2026",
@@ -4025,9 +3871,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-the-state-of-creative-coding-processing-foundation-community-meetup",
@@ -4104,9 +3948,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-3dgs-in-web-gaming-the-shadow-of-the-czar",
@@ -4131,9 +3973,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "gaussian-splatting"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-adopting-openusd-and-materialx-in-production-pipelines",
@@ -4158,9 +3998,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-art-gallery-art-gallery-and-art-papers-awards-gathering",
@@ -4291,10 +4129,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "gaussian-splatting",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-production-session-weta-fx-presents-avatar-fire-and-ash-production-session-meet-greet",
@@ -4312,10 +4147,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-keynote-speaker-sponsored-keynote-by-nvidia-neil-ashton-ming-yu-liu-and-edward-liu-next-era-of-graphics-neural-rendering-world-models-and-simulation",
@@ -4349,11 +4181,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "neural",
-      "rendering",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-real-time-rendering",
@@ -4369,10 +4197,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "games",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-talks-siggraph-roundtables-beyond-the-talk",
@@ -4406,9 +4231,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-fabrication",
@@ -4424,9 +4247,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "fabrication"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-humans-hands-reconstruction",
@@ -4442,10 +4263,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "capture",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-immersive-pavilion-experience-presentation-immersive-pavilion-how-human-sensation-shapes-xr-experiences",
@@ -4464,10 +4282,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans",
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-opencolorio",
@@ -4615,9 +4430,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "fabrication"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-chapters-east-coast-meetup",
@@ -4654,9 +4467,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-countering-racial-bias-in-computer-graphics-research-five-years-later",
@@ -4785,9 +4596,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "gaussian-splatting"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-meet-mingle-and-make-a-difference",
@@ -4862,9 +4671,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-3d-jobs-outside-of-entertainment-a-panel-by-the-3d-artist-community",
@@ -4922,10 +4729,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "capture",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-generative-3d-2",
@@ -4941,9 +4745,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-layouts-procedural",
@@ -5021,9 +4823,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-advances-in-real-time-rendering-in-games-part-i",
@@ -5059,10 +4859,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "games",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-workshop-humanai-co-creation-in-generative-art-graphics-methods-systems-and-applications",
@@ -5125,10 +4922,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans",
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-hydra-in-production",
@@ -5180,9 +4974,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-3d-geometry--2026-07-21",
@@ -5201,9 +4993,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-animation-simulation--2026-07-21",
@@ -5222,10 +5012,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-art-design--2026-07-21",
@@ -5263,9 +5050,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-displays-optics--2026-07-21",
@@ -5284,9 +5069,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "display"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-images-video-computer-vision--2026-07-21",
@@ -5343,9 +5126,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-autodesk-vision-series-animating-creatures-of-the-upside-down-with-weta-fx-the-creepy-realism-of-stranger-things-season-5",
@@ -5409,9 +5190,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-physical-ai-day-openusd-for-ai-agents-model-driven-workflows-and-3d-graphics-pipelines",
@@ -5431,10 +5210,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-chaos-ray-traced-gaussian-splats-in-production-the-june-july-pipeline",
@@ -5454,10 +5230,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "gaussian-splatting",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-3d-assets-new-features-tooling-and-what-comes-next",
@@ -5537,9 +5310,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-pioneers-featured-speaker-don-greenberg",
@@ -5593,11 +5364,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "production",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-art-gallery-art-gallery--2026-07-21",
@@ -5674,9 +5441,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-inside-the-show-a-live-vr-performance-and-the-backstage-systems-behind-it",
@@ -5717,9 +5482,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-hands-on-course-nvidia-introduction-to-slang-the-next-generation-shading-language",
@@ -5748,10 +5511,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-nebius-world-models-where-games-vfx-and-ai-collide",
@@ -5771,10 +5531,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-physical-ai-day-building-simready-3d-worlds-for-physical-ai",
@@ -5812,10 +5569,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "animation",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-autodesk-vision-series-how-to-give-soul-to-a-faceless-alien-question-animating-rocky-in-project-hail-mary-with-framestore",
@@ -5835,9 +5589,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-dynamic-scenes",
@@ -5953,9 +5705,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-what-s-the-latest-at-chaos-realtime-world-building-gaussian-splats-and-artist-friendly-ai-meet-together",
@@ -5975,10 +5725,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games",
-      "gaussian-splatting"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-anari-in-action-open-rendering-for-visualization-simulation-and-discovery",
@@ -6007,10 +5754,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "rendering",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-going-cloud-native",
@@ -6064,9 +5808,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-tool-ux-design-workflow-from-tool-pain-to-workflow-gain",
@@ -6091,9 +5833,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-emerging-technologies-emerging-technologies-demo-lightopt-lights-optimization-for-real-time-rendering",
@@ -6119,10 +5859,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-visual-instruments-for-live-cinema-turning-process-into-performance",
@@ -6167,9 +5904,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-faceform-nanoskin-human-skin-super-resolution-and-material-acquisition-for-photorealistic-digital-doubles-at-scale",
@@ -6189,9 +5924,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-acm-siggraph-cartographic-visualization-birds-of-a-feather",
@@ -6236,9 +5969,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-la-local-artists-showcase",
@@ -6301,11 +6032,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games",
-      "humans",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-emerging-technologies-emerging-technologies-demo-music-learning-muscle-driven-dexterous-hand-control",
@@ -6331,9 +6058,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-computer-animation-festival-in-conversation-with-brad-bird-meet-greet",
@@ -6369,9 +6094,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-ltx-from-pixels-to-physics-building-ai-s-right-brain-in-the-open",
@@ -6391,9 +6114,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-ancestral-craft-and-emerging-technologies-designing-futures-from-place",
@@ -6442,9 +6163,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-physical-ai-day-career-growth-in-physical-ai-bringing-3d-graphics-skills-into-robotics-and-digital-twins",
@@ -6497,10 +6216,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "ai-tools",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-computer-graphics-animation-research-projects",
@@ -6525,9 +6241,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-computer-graphics-history-siggraph-stories-and-more",
@@ -6675,11 +6389,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games",
-      "production",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-autodesk-vision-series-ai-in-the-production-pipeline-a-conversation-with-cinesite-s-cto",
@@ -6699,9 +6409,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-emerging-technologies-emerging-technologies-demo-sketch2arti-sketch-based-articulation-modeling-of-cad-objects",
@@ -6747,9 +6455,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-global-scale-photorealism-with-google-immersive-view-xr",
@@ -6794,9 +6500,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-chaos-from-game-engine-to-production-engine",
@@ -6816,10 +6520,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-physical-ai-day-building-physics-aware-rtx-enabled-apps-with-nvidia-omniverse-libraries-and-ai-agents",
@@ -6839,10 +6540,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-siggraph-swag-swap-and-archive-donation-location",
@@ -6912,10 +6610,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-art-paper-ai-and-agency",
@@ -6980,9 +6675,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-parametric-surfaces",
@@ -6998,10 +6691,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-educator-s-forum-performance-focus",
@@ -7054,10 +6744,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "games",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-workshop-efficient-3d-content-creation-for-immersive-experiences",
@@ -7112,9 +6799,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-usd-in-production",
@@ -7154,9 +6839,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-autodesk-vision-series-clumsy-deadly-unforgettable-creating-the-rad-roach-massacre-in-fallout-season-2",
@@ -7202,9 +6885,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-deploying-radiance-fields-across-real-time-and-web-bridging-academia-and-industry",
@@ -7233,9 +6914,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-emerging-technologies-emerging-technologies-demo-a-lod-of-gaussians-out-of-core-training-and-rendering-for-seamless-ultra-large-scene-reconstruction",
@@ -7261,10 +6940,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "capture",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-hands-on-course-hands-on-programming-and-running-quantum-teleportation",
@@ -7289,9 +6965,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-integrating-neural-graphics-into-vulkan-rendering-pipelines-on-arm-a-fireside-conversation-with-the-teams-behind-neural-dawn-arm-x-sumo",
@@ -7311,11 +6985,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "neural",
-      "production",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-chaos-cloud-arena-bringing-real-time-ray-traced-virtual-production-to-the-global-cloud",
@@ -7335,10 +7005,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-physical-ai-day-autonomous-vehicle-simulation-technologies-with-nurec-3d-gaussian-cosmos-dreams",
@@ -7358,9 +7025,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-the-future-of-web3d-standards-performance-and-immersive-experiences",
@@ -7385,9 +7050,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-global-cg-pipelines",
@@ -7416,9 +7079,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-running-large-scale-multi-site-vfx-productions-in-the-real-world-what-s-working-what-to-fix",
@@ -7451,9 +7112,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-immersive-pavilion-roll-for-reality-virtual-production-improvised-d-d-show",
@@ -7487,9 +7146,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-start-join-connect-all-about-acm-siggraph-chapters",
@@ -7528,9 +7185,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-orchestrating-multimodal-control-for-unified-audio-visual-synthesis",
@@ -7696,11 +7351,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "ai-tools",
-      "capture",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-building-the-interactive-future-inside-tripo-s-full-stack-3d-generation-ecosystem",
@@ -7740,10 +7391,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-montage-as-pedagogical-scaffold-for-reasoning-beyond-language",
@@ -7801,9 +7449,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "ai-tools"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-sustainable-research-in-computer-graphics",
@@ -7854,9 +7500,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-acm-siggraph-pioneers-reception",
@@ -7894,9 +7538,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-frontiers-frontier-talk-towards-a-graphics-silicon-gymnasium-to-shape-the-future-of-micro-embodied-ai",
@@ -7955,9 +7597,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-building-the-future-of-web-graphics-with-webgl-and-webgpu",
@@ -8010,9 +7650,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-new-3d-creation-workflows-and-international-collaboration-in-the-real-time-3d-and-genai-era",
@@ -8053,10 +7691,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-educator-s-forum-current-hiring-trends-in-the-animation-vfx-industry",
@@ -8075,10 +7710,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-efficient-sampling-restir-and-more",
@@ -8110,9 +7742,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-image-generation",
@@ -8144,9 +7774,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-hands-on-lab-ray-trace-your-way-to-a-better-life-with-omniverse-libraries-openusd-agents-and-you",
@@ -8166,10 +7794,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-state-of-hair-in-the-industry",
@@ -8206,9 +7831,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-workshop-ai-for-creative-visual-content-generation-editing-and-understanding",
@@ -8271,9 +7894,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "ai-tools"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-gpu-ray-tracing-using-nvidia-optix-and-owl",
@@ -8305,10 +7926,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "games",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-how-to-write-a-vulkan-application-in-2026",
@@ -8387,9 +8005,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-animation-simulation--2026-07-22",
@@ -8408,10 +8024,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-art-design--2026-07-22",
@@ -8449,9 +8062,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-displays-optics--2026-07-22",
@@ -8470,9 +8081,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "display"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-images-video-computer-vision--2026-07-22",
@@ -8529,9 +8138,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-rtx-rendering-day-from-viewport-to-virtual-production-real-time-ray-tracing-with-chaos-vantage",
@@ -8551,11 +8158,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games",
-      "production",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-autodesk-vision-series-animating-weapon-skins-for-valorant-with-riot-games",
@@ -8575,9 +8178,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-production-session-the-fate-of-humanity-rests-with-project-hail-mary-ilm-s-contribution-to-visual-effects-behind-the-film",
@@ -8609,9 +8210,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-rtx-rendering-day-from-pitch-to-photorealism-maxons-rtx-powered-solutions-for-advertising-and-archviz",
@@ -8630,9 +8229,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-emerging-technologies-emerging-technologies-demo-gausmoke-hybrid-physics-optical-gaussian-splatting-for-sparse-smoke-reconstruction",
@@ -8658,11 +8255,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "capture",
-      "gaussian-splatting",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-virtual-desktop-infrastructure-vdi-best-practices-on-prem-and-cloud-for-vfx-and-animation",
@@ -8695,10 +8288,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-gaussian-splatting-for-animation-emerging-workflows-and-hybrid-pipelines",
@@ -8723,11 +8313,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "gaussian-splatting",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-hands-on-course-accelerate-robot-learning-with-nvidia-isaac-lab-and-newton",
@@ -8756,9 +8342,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-gltf-2-1-and-beyond-building-interactive-and-spatial-3d-experiences",
@@ -8811,9 +8395,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-art-gallery-art-gallery--2026-07-22",
@@ -8890,9 +8472,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-ai-war-cloud-database",
@@ -8941,9 +8521,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-prana-labs-tripo-ai-x-prana-labs",
@@ -9000,10 +8578,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-autodesk-vision-series-not-just-big-alive-the-animation-of-kong-in-monarch-season-2",
@@ -9023,9 +8598,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-educator-s-forum-code-dev-2",
@@ -9062,10 +8635,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "humans",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-affine-bodies-shells-rods",
@@ -9097,9 +8667,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "capture"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-reconstruction-sampling",
@@ -9115,9 +8683,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "capture"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-vectors-graphics-strokes-sketches",
@@ -9153,9 +8719,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-motion-capture-society",
@@ -9180,10 +8744,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "capture"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-emerging-technologies-emerging-technologies-demo-motionbricks-scalable-real-time-motions-with-modular-latent-generative-model-and-smart-primitives",
@@ -9209,11 +8770,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "games",
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-vr-biosecurity-surveillance-training-for-indigenous-rangers",
@@ -9238,9 +8795,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-production-session-toys-meet-tech-the-making-of-disney-and-pixar-s-toy-story-5",
@@ -9313,9 +8868,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-miris-openusd-streamed-to-any-device-anywhere",
@@ -9364,9 +8917,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-autodesk-vision-series-ai-for-spatial-storytelling-going-beyond-generation-with-3d-world-models",
@@ -9386,10 +8937,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-la-folded-a-cybernetic-mirage--2026-07-22",
@@ -9477,9 +9025,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-computer-animation-festival-animation-theater-3-the-other-side-of-quiet",
@@ -9497,9 +9043,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-berthouzoz-women-in-research-lunch",
@@ -9578,10 +9122,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "neural",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-virtual-theatre-producing-live-theatre-on-virtual-stages",
@@ -9642,10 +9183,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "ai-tools",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-chapters-west-coast-meetup",
@@ -9693,9 +9231,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-autodesk-vision-series-a-small-teams-journey-to-a-ves-award-winning-animated-film",
@@ -9740,9 +9276,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-emerging-technologies-emerging-technologies-demo-abstraction-in-style-beyond-texture-and-color",
@@ -9801,9 +9335,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-hands-on-lab-blender-oranges-and-ovrtx-not-your-typical-smoothie",
@@ -9823,9 +9355,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-world-wide-technology-augmented-not-automated",
@@ -9845,9 +9375,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-cheap-and-cheerful-low-fidelity-prototyping-for-spatial-stories",
@@ -9872,9 +9400,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-rtx-rendering-day-gpu-rendering-at-film-scale-karma-xpu-in-production-at-rodeo-fx",
@@ -9894,11 +9420,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games",
-      "production",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-art-in-the-time-of-a-i",
@@ -9952,9 +9474,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-4d-humans",
@@ -9970,9 +9490,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-differentiable-geometry-processing-flow-maps",
@@ -9988,9 +9506,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-film-vfx-production",
@@ -10006,9 +9522,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-art-paper-memory-and-heritage",
@@ -10070,9 +9584,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-shading-relighting-and-volumes",
@@ -10088,9 +9600,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-the-universal-scribe-a-single-model-for-every-writing-system",
@@ -10186,9 +9696,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-moving-mobile-graphics",
@@ -10327,9 +9835,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-refact-growing-with-movement-a-hybrid-performance",
@@ -10374,11 +9880,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "games",
-      "production",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-a-new-media-techspressionist-architectures-experiment-an-ar-mediated-speculative-expression-in-an-audio-visual-21st-century-la-world",
@@ -10411,9 +9913,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-from-cloud-to-set-discussing-the-future-of-cloud-adaptive-and-ai-native-production",
@@ -10438,10 +9938,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "ai-tools",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-hands-on-course-sponsored-by-autodesk-from-footage-to-previs-ai-mocap-workflows-with-autodesk-flow-studio-and-maya",
@@ -10466,10 +9963,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-hands-on-lab-isaac-sim-and-the-fine-art-of-making-your-robot-pick-things-up",
@@ -10489,9 +9983,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-the-state-of-vulkan-updates-tools-and-developer-resources",
@@ -10553,9 +10045,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-educator-s-forum-culture-heritage",
@@ -10604,9 +10094,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-numerical-methods-for-geometry-processing",
@@ -10622,9 +10110,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-perception",
@@ -10656,9 +10142,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-art-paper-materiality-and-computation",
@@ -10721,12 +10205,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "animation",
-      "games",
-      "production",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-stage-session-minimax-new-frontier-in-multimodality",
@@ -10803,9 +10282,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-rtx-rendering-day-advancing-led-virtual-production-with-neural-rendering",
@@ -10825,11 +10302,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "neural",
-      "production",
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-ai-powered-standards-how-khronos-is-building-the-future-of-graphics",
@@ -10866,9 +10339,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "ai-tools"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-everyone-is-an-obscure-artist-living-lineages-in-computational-creativity",
@@ -10928,9 +10399,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-khronos-group-networking-reception",
@@ -11053,9 +10522,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-how-to-get-your-resume-reel-noticed",
@@ -11116,9 +10583,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "neural"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-talks-feathers-scales-and-curls",
@@ -11150,9 +10615,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-npr-style-abstraction",
@@ -11184,9 +10647,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-quads-singularities",
@@ -11262,9 +10723,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-frontiers-frontiers-workshop-dronevision-holodecks-and-spatial-computing-using-swarms-of-flying-light-specks",
@@ -11305,9 +10764,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-nvidia-advanced-real-time-volume-graphics",
@@ -11339,9 +10796,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "games"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-3d-geometry--2026-07-23",
@@ -11360,9 +10815,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-animation-simulation--2026-07-23",
@@ -11381,10 +10834,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-art-design--2026-07-23",
@@ -11422,9 +10872,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-displays-optics--2026-07-23",
@@ -11443,9 +10891,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "display"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-poster-posters-images-video-computer-vision--2026-07-23",
@@ -11502,9 +10948,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-production-session-trial-by-fire-the-vfx-of-the-lost-bus",
@@ -11532,9 +10976,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-the-making-of-kok-boru-where-untold-stories-find-new-pipelines",
@@ -11554,9 +10996,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-no-code-virtual-reality-immersive-learning",
@@ -11581,9 +11021,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-remote-production-in-2026-what-actually-works",
@@ -11620,9 +11058,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-art-gallery-art-gallery--2026-07-23",
@@ -11699,9 +11135,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-dog-walk-narrating-human-ai-alignment-through-companion-robots",
@@ -11730,9 +11164,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-hands-on-course-nvidia-from-3d-captures-to-simulated-digital-environments",
@@ -11765,10 +11197,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "capture",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-acm-siggraph-digital-arts-community-roundtables",
@@ -11858,9 +11287,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-image-editing",
@@ -11908,9 +11335,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-talks-rendering-and-volumes",
@@ -11926,9 +11351,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-simulation",
@@ -11944,9 +11367,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-ai-in-education-continuing-conversations-on-disruptive-trends",
@@ -11975,9 +11396,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "education"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-making-the-old-stories-new-innovative-dreams-and-moses",
@@ -12022,9 +11441,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-spatial-storytelling-the-instrument-is-the-story-ten-years-of-spatial-music-making-with-paradiddle",
@@ -12049,9 +11466,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-production-session-dear-upstairs-neighbors-artist-centered-ai-assisted-expressionistic-animation",
@@ -12083,10 +11498,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "ai-tools",
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-techspressionism-an-expressive-approach-to-digital-art",
@@ -12148,12 +11560,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "capture",
-      "gaussian-splatting",
-      "humans",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-production-session-dear-upstairs-neighbors-artist-centered-ai-assisted-expressionistic-animation-production-session-meet-greet",
@@ -12171,11 +11578,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "ai-tools",
-      "animation",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-computer-animation-festival-animation-theater-4-adventure-time",
@@ -12193,9 +11596,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-educator-s-forum-educator-s-townhall-session",
@@ -12257,9 +11658,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "vr-ar"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-industry-session-nvidia-making-chikaboom-ai-animation-and-the-artist-centered-production-pipeline",
@@ -12279,10 +11678,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "animation",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-acm-siggraph-365-history-fueling-the-future-by-preserving-the-past-the-acm-siggraph-history-archive",
@@ -12401,9 +11797,7 @@
       "E",
       "D"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-the-pipeline-conference-organizer-meetup",
@@ -12432,9 +11826,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-world-models-when-digital-reality-thinks-adapts-and-responds",
@@ -12475,9 +11867,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "gaussian-splatting"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-garments",
@@ -12525,9 +11915,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "animation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-nvidia-a-step-by-step-introduction-to-the-anari-rendering-api",
@@ -12555,9 +11943,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-frontiers-frontiers-workshop-form-and-function-a-hands-on-workshop-on-computationally-designing-and-fabricating-barrier-grid-animations",
@@ -12586,10 +11972,7 @@
       "FC",
       "E"
     ],
-    "tags": [
-      "animation",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-workshop-performance-rendering-and-interaction-for-competitive-esports-price",
@@ -12633,9 +12016,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "rendering"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-physics-is-easier-than-you-think-from-classical-to-neural-elastic-simulation",
@@ -12667,10 +12048,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "neural",
-      "simulation"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-course-remesher-automate-character-pipelines-with-comfyui-s-api-docker-and-agents",
@@ -12694,12 +12072,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "ai-tools",
-      "animation",
-      "geometry",
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-birds-of-a-feather-archiving-media-art-and-preserving-obsolete-technologies",
@@ -12776,9 +12149,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "capture"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-mapping-untangling-summarizing-surfaces",
@@ -12794,10 +12165,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "geometry",
-      "humans"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-multimodal-learning",
@@ -12829,9 +12197,7 @@
       "FCS",
       "FC"
     ],
-    "tags": [
-      "production"
-    ]
+    "tags": []
   },
   {
     "id": "s2026-technical-paper-technical-papers-closing-session",

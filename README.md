@@ -16,12 +16,12 @@ First fixture: **SIGGRAPH 2026** (Los Angeles, 19–23 July 2026, 487 sessions).
 ```bash
 npm install
 npm run dev          # http://localhost:5173
-npm test             # 34 logic + 19 component tests
+npm test             # 34 logic + 22 component tests
 npm run build        # -> dist/
 
 # Real-browser tests (Chromium via Playwright). First run only:
 npx playwright install chromium
-npm run test:e2e     # 15 end-to-end checks, starts its own server
+npm run test:e2e     # 20 end-to-end checks, starts its own server
 npm run shots        # screenshots -> e2e/shots/
 ```
 
@@ -37,17 +37,34 @@ npm run shots        # screenshots -> e2e/shots/
   duplicating them.
 - **Works offline.** Installable as a PWA; the schedule is cached for the show floor.
 
-## Using it for a different conference
+## Multiple conferences
 
-Replace two files and you have a working planner:
+The app is multi-event. Bundled conferences live one folder each under
+`public/data/`, listed in a manifest:
 
 ```
-public/data/config.json     conference declaration — days, timezone, access tiers
-public/data/sessions.json   the sessions
+public/data/
+  index.json                     manifest the app reads to build the switcher
+  siggraph-2026/config.json       conference declaration — days, timezone, tiers, accent
+  siggraph-2026/sessions.json     the sessions
+  <your-conf>/config.json
+  <your-conf>/sessions.json
 ```
 
-No code changes. Filters, tracks and topics are all derived from the data.
-`SPEC.md` is the authoritative format reference; a minimal session is:
+The header title is a switcher (▾) — each conference keeps its **own** picks and
+notes, keyed by `conferenceId`; switching never touches the others, so it doubles
+as your history of past events. Users can also add their own from the switcher by
+**URL or a bundle file** (a single `.json` with `config` + `sessions`); it's cached
+on-device so it works offline after the first load.
+
+### Adding a conference to the repo
+
+Add `public/data/<id>/config.json` + `sessions.json`, then regenerate the manifest.
+The SIGGRAPH importer does this automatically (`rebuild_index`); for a hand-authored
+conference, add an entry to `public/data/index.json` (`id`, `name`, `path`, `accent`,
+`dateRange`, `location`, `dataVersion`). No code changes — filters, tracks and topics
+are all derived from the data. `SPEC.md` is the authoritative format reference; a
+minimal session is:
 
 ```json
 {
@@ -83,7 +100,7 @@ cells, no date column, a missing day banner, and hyperlinks buried in two
 different columns.
 
 ```bash
-npm run import:siggraph        # xlsx -> public/data/*.json + import-report.txt
+npm run import:siggraph        # xlsx -> public/data/siggraph-2026/*.json + rebuilds index.json
 python3 scripts/seed_tags.py   # placeholder topic tags from titles
 ```
 
@@ -131,7 +148,7 @@ shareable. Not opt-in, not offered — the code path doesn't exist.
 ## Project layout
 
 ```
-public/data/       config.json, sessions.json, import-report.txt
+public/data/       index.json (manifest) + <conferenceId>/{config,sessions}.json
 scripts/           import_siggraph2026.py, seed_tags.py
 src/lib/           pure logic: identity, conflicts, ics, share, journal, storage
 src/components/    PickerView, ColumnsView, dialogs
@@ -141,13 +158,13 @@ SPEC.md            the format and architecture spec — read this first
 
 ## Testing
 
-Three layers, 68 checks total:
+Three layers, 76 checks total:
 
 | Suite | What it covers |
 |---|---|
 | `tests/lib.test.js` (34) | Identity, conflicts, `.ics`, share resolution, journal diffing — plus invariants on the real 487-session dataset, so a bad data regenerate fails the build |
-| `tests/components.test.jsx` (19) | Every component rendered against real data |
-| `e2e/run.mjs` (15) | Real Chromium: IndexedDB persistence across reload, `.ics` download, share round-trip through the file picker, offline via service worker |
+| `tests/components.test.jsx` (22) | Every component rendered against real data (incl. the conference switcher) |
+| `e2e/run.mjs` (20) | Real Chromium: IndexedDB persistence, `.ics` download, share round-trip, Browse view-model, detail sheet, dark theme, conference add/switch, offline via service worker |
 
 ## Status
 
@@ -156,8 +173,9 @@ the notable one is that topic tags are seeded from titles only (54% coverage),
 because the SIGGRAPH source has no abstracts. Real enrichment means mining each
 session's URL.
 
-Not yet done: multi-conference switching, and a pass on physical iOS/Android
-hardware (Chromium headless is not a substitute for real Safari).
+Not yet done: the change-review bottom sheet (the update banner still expands
+inline), and a pass on physical iOS/Android hardware (Chromium headless is not a
+substitute for real Safari).
 
 ## License
 

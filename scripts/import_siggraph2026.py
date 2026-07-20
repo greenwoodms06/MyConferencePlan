@@ -67,6 +67,9 @@ CONFERENCE_META = {
     "name": "SIGGRAPH 2026",
     "location": "Los Angeles Convention Center, 1201 S Figueroa St, Los Angeles, CA 90015",
     "timezone": "America/Los_Angeles",
+    "accent": "#3d5af1",           # per-conference theme slot (switcher monogram + app accent)
+    "dateRange": "Jul 19–23",
+    "shortLocation": "Los Angeles",
 }
 
 COL_TIME, COL_TRACK, COL_TITLE = "A", "B", "C"
@@ -356,6 +359,9 @@ def build_config(sessions, generated_at):
         ("dataVersion", generated_at[:10]),
         ("generatedAt", generated_at),
         ("name", CONFERENCE_META["name"]),
+        ("accent", CONFERENCE_META["accent"]),
+        ("dateRange", CONFERENCE_META["dateRange"]),
+        ("shortLocation", CONFERENCE_META["shortLocation"]),
         ("location", CONFERENCE_META["location"]),
         ("timezone", CONFERENCE_META["timezone"]),
         ("days", DAYS),
@@ -433,7 +439,9 @@ def validate(sessions, report):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--source", default="siggraph2026.xlsx")
-    ap.add_argument("--out", default="public/data")
+    # Per-conference folder under public/data/. The manifest (index.json) is
+    # regenerated from every such folder after writing.
+    ap.add_argument("--out", default="public/data/siggraph-2026")
     ap.add_argument("--generated-at", default=None)
     args = ap.parse_args()
 
@@ -469,10 +477,34 @@ def main():
                f"Wrote {out_dir}/config.json",
                f"Issues needing review: {problems}"]
 
+    rebuild_index(out_dir.parent)
+    report.append(f"Rebuilt {out_dir.parent}/index.json")
+
     text = "\n".join(report)
-    (out_dir / "import-report.txt").write_text(text + "\n", encoding="utf-8")
     print(text)
     return 0
+
+
+def rebuild_index(data_dir):
+    """Regenerate the conference manifest from every folder holding a config.json."""
+    conferences = []
+    for folder in sorted(p for p in data_dir.iterdir() if p.is_dir()):
+        cfg_path = folder / "config.json"
+        if not cfg_path.exists():
+            continue
+        cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+        conferences.append(OrderedDict([
+            ("id", cfg["conferenceId"]),
+            ("name", cfg["name"]),
+            ("path", folder.name),
+            ("accent", cfg.get("accent", "#3d5af1")),
+            ("dateRange", cfg.get("dateRange", "")),
+            ("location", cfg.get("shortLocation") or cfg.get("location", "")),
+            ("dataVersion", cfg.get("dataVersion", "")),
+        ]))
+    manifest = OrderedDict([("schemaVersion", 1), ("conferences", conferences)])
+    (data_dir / "index.json").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

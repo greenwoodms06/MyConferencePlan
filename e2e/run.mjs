@@ -62,7 +62,7 @@ try {
   await waitForServer()
   browser = await chromium.launch()
 
-  const sessions = JSON.parse(readFileSync(new URL('../public/data/sessions.json', import.meta.url)))
+  const sessions = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/sessions.json', import.meta.url)))
 
   // --------------------------------------------------------------------
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } })
@@ -340,6 +340,53 @@ try {
     assert(/badge/i.test(warn), 'tier warning not shown')
     await page.getByRole('button', { name: 'Add anyway' }).click()
     await page.waitForTimeout(300)
+  })
+
+  // ---- conference switcher + add ---------------------------------------
+  await check('the conference switcher lists the active conference', async () => {
+    await page.getByRole('button', { name: 'Switch conference' }).click()
+    await page.waitForSelector('.sheet[aria-label="Your conferences"]')
+    const sheet = await page.locator('.sheet').innerText()
+    assert(/SIGGRAPH 2026/.test(sheet), 'active conference not listed')
+    assert(await page.locator('.conf-row.is-active').count() === 1, 'no active row marked')
+    await page.locator('.scrim').click({ position: { x: 5, y: 5 } })
+    await page.waitForTimeout(200)
+  })
+
+  await check('adding a conference by file rebinds the whole app (multi-event)', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'ocp-conf-'))
+    const file = join(dir, 'bundle.json')
+    writeFileSync(file, JSON.stringify({
+      config: {
+        schemaVersion: 1, conferenceId: 'test-conf-2026', name: 'Test Conf 2026',
+        accent: '#c2570c', dateRange: 'Jan 1', shortLocation: 'Nowhere',
+        timezone: 'UTC', days: [{ key: '2026-01-01', label: 'Thu', date: '1' }],
+        accessLevels: [], tracks: [],
+      },
+      sessions: [
+        { id: 'tc-1', day: '2026-01-01', start: '09:00', end: '10:00', title: 'Opening Remarks', tracks: ['Talks'], tags: [] },
+      ],
+    }))
+
+    const fresh = await context.newPage()
+    await fresh.goto(APP, { waitUntil: 'networkidle' })
+    await fresh.waitForSelector('.session')
+    await fresh.getByRole('button', { name: 'Switch conference' }).click()
+    await fresh.waitForSelector('.sheet[aria-label="Your conferences"]')
+    await fresh.getByText('Add a conference').click()
+    await fresh.locator('input[type=file]').setInputFiles(file)
+    // App rebinds: title, days, sessions all change to the new conference.
+    await fresh.waitForFunction(() => document.querySelector('.app-header h1')?.textContent === 'Test Conf 2026', { timeout: 8000 })
+    await fresh.waitForSelector('.session')
+    assert(await fresh.locator('.session').count() === 1, 'new conference sessions not loaded')
+    assert((await fresh.locator('.result-count').innerText()).includes('1 of 1'), 'wrong session count')
+
+    // And it persists + stays selectable after reload (cached in IndexedDB).
+    await fresh.reload({ waitUntil: 'networkidle' })
+    await fresh.waitForSelector?.('.session') ?? await fresh.waitForSelector('.session')
+    await fresh.waitForTimeout(500)
+    assert((await fresh.locator('.app-header h1').innerText()) === 'Test Conf 2026', 'active conference not remembered')
+    await fresh.close()
   })
 
   // ---- offline ---------------------------------------------------------

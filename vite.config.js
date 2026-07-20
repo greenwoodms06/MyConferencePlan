@@ -28,10 +28,12 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,json}'],
-        // Conference data is precached with the shell so the app works on a
-        // show floor with no wifi, but revalidated when there IS a network so
-        // a schedule change reaches the user (SPEC sect. 8.1).
+        // Precache the app shell + the manifest + the default conference only.
+        // Other conferences load on demand and cache at runtime, so the offline
+        // footprint doesn't grow with every conference in the repo.
+        globPatterns: ['**/*.{js,css,html,svg}', 'data/index.json', 'data/siggraph-2026/*.json'],
+        // Any conference data (default or on-demand) is revalidated when online
+        // so a schedule change reaches the user (SPEC sect. 8.1).
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.includes('/data/'),

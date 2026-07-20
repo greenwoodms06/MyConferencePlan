@@ -11,9 +11,10 @@
 // user data on disk; changing it would orphan every saved journal — the exact
 // data-loss the whole design guards against (SPEC sect. 2.1 in spirit).
 const DB_NAME = 'openconferenceplan'
-const DB_VERSION = 1
-const STORE_JOURNALS = 'journals'   // one record per conference
-const STORE_COLUMNS = 'columns'     // imported colleagues, per conference
+const DB_VERSION = 2
+const STORE_JOURNALS = 'journals'       // one record per conference
+const STORE_COLUMNS = 'columns'         // imported colleagues, per conference
+const STORE_CONFERENCES = 'conferences' // user-added conference bundles (config + sessions)
 
 let dbPromise = null
 
@@ -32,6 +33,9 @@ function openDb() {
       }
       if (!db.objectStoreNames.contains(STORE_COLUMNS)) {
         db.createObjectStore(STORE_COLUMNS, { keyPath: 'key' })
+      }
+      if (!db.objectStoreNames.contains(STORE_CONFERENCES)) {
+        db.createObjectStore(STORE_CONFERENCES, { keyPath: 'id' })
       }
     }
     request.onsuccess = () => resolve(request.result)
@@ -62,6 +66,21 @@ export function saveJournal(journal) {
 
 export function listJournals() {
   return tx(STORE_JOURNALS, 'readonly', (store) => store.getAll()).catch(() => [])
+}
+
+/** User-added conferences: the full bundle (config + sessions) is cached in
+ *  IndexedDB so it keeps working offline after the first load (URL or file). */
+export function saveUserConference(record) {
+  return tx(STORE_CONFERENCES, 'readwrite', (store) => store.put(record))
+}
+export function listUserConferences() {
+  return tx(STORE_CONFERENCES, 'readonly', (store) => store.getAll()).catch(() => [])
+}
+export function loadUserConference(id) {
+  return tx(STORE_CONFERENCES, 'readonly', (store) => store.get(id)).catch(() => null)
+}
+export function removeUserConference(id) {
+  return tx(STORE_CONFERENCES, 'readwrite', (store) => store.delete(id))
 }
 
 export function loadColumns(conferenceId) {

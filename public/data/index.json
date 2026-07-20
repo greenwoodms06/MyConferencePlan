@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "conferences": [
+    {
+      "id": "siggraph-2026",
+      "name": "SIGGRAPH 2026",
+      "path": "siggraph-2026",
+      "accent": "#3d5af1",
+      "dateRange": "Jul 19–23",
+      "location": "Los Angeles",
+      "dataVersion": "2026-07-20"
+    }
+  ]
+}

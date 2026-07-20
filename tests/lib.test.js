@@ -13,8 +13,8 @@ import {
   acknowledgeChange, acknowledgeAll, canAttend, makeSnapshot,
 } from '../src/lib/journal.js'
 
-const sessions = JSON.parse(readFileSync(new URL('../public/data/sessions.json', import.meta.url)))
-const config = JSON.parse(readFileSync(new URL('../public/data/config.json', import.meta.url)))
+const sessions = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/sessions.json', import.meta.url)))
+const config = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/config.json', import.meta.url)))
 const byId = new Map(sessions.map((s) => [s.id, s]))
 
 // --------------------------------------------------------------------------

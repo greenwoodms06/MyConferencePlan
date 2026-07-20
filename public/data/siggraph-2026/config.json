@@ -2,8 +2,11 @@
   "schemaVersion": 1,
   "conferenceId": "siggraph-2026",
   "dataVersion": "2026-07-20",
-  "generatedAt": "2026-07-20T07:24:37Z",
+  "generatedAt": "2026-07-20T22:19:03Z",
   "name": "SIGGRAPH 2026",
+  "accent": "#3d5af1",
+  "dateRange": "Jul 19–23",
+  "shortLocation": "Los Angeles",
   "location": "Los Angeles Convention Center, 1201 S Figueroa St, Los Angeles, CA 90015",
   "timezone": "America/Los_Angeles",
   "days": [

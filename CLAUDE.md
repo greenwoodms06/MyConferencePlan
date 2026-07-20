@@ -58,8 +58,9 @@ change the importer and tests fail on counts, check the data before "fixing" the
 ## Layout
 
 ```
-public/data/     config.json + sessions.json (generated), import-report.txt
-scripts/         import_siggraph2026.py (one-shot xlsx adapter), seed_tags.py
+public/data/     index.json (manifest) + <conferenceId>/{config,sessions}.json (generated)
+                 multi-event: app reads the manifest, one folder per conference
+scripts/         import_siggraph2026.py (xlsx adapter, writes a folder + rebuilds index), seed_tags.py
 src/lib/         pure logic, fully unit-tested: time, overlap, ics, share, journal, storage, palette
 src/components/  PickerView (browse), ColumnsView (collaborative), dialogs
 src/styles.css   ALL styling lives here — no CSS-in-JS, no per-component files

@@ -13,8 +13,8 @@ import { newJournal, addPick } from '../src/lib/journal.js'
 import { buildShareFile, resolveShareFile, buildResolver } from '../src/lib/share.js'
 import { findConflicts } from '../src/lib/overlap.js'
 
-const sessions = JSON.parse(readFileSync(new URL('../public/data/sessions.json', import.meta.url)))
-const config = JSON.parse(readFileSync(new URL('../public/data/config.json', import.meta.url)))
+const sessions = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/sessions.json', import.meta.url)))
+const config = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/config.json', import.meta.url)))
 const sessionsById = buildResolver(sessions)
 const TUESDAY = '2026-07-21'
 
@@ -283,3 +283,44 @@ describe('App shell', () => {
     }
   })
 })
+
+import { validateBundle } from '../src/lib/registry.js'
+import ConferenceSwitcher from '../src/components/ConferenceSwitcher.jsx'
+
+describe('conference registry + switcher', () => {
+  test('validateBundle accepts a good bundle, rejects malformed ones', () => {
+    assert_ok(validateBundle({ config, sessions }).ok === true)
+    assert_ok(validateBundle({}).ok === false)
+    assert_ok(validateBundle({ config: { name: 'X' }, sessions: [] }).ok === false)
+    assert_ok(validateBundle({ config: { conferenceId: 'x', name: 'X', days: [] }, sessions: [] }).ok === false)
+    assert_ok(validateBundle({ config: { conferenceId: 'x', name: 'X', days: [{ key: 'd' }] }, sessions: [{ id: 'a' }] }).ok === false)
+  })
+
+  test('manifest lists siggraph-2026 with a per-conference path + switcher metadata', () => {
+    const manifest = JSON.parse(readFileSync(new URL('../public/data/index.json', import.meta.url)))
+    const entry = manifest.conferences.find((c) => c.id === 'siggraph-2026')
+    expect(entry).toBeTruthy()
+    expect(entry.path).toBe('siggraph-2026')
+    expect(entry.accent).toBeTruthy()
+    expect(entry.dateRange).toBeTruthy()
+  })
+
+  test('switcher renders each conference with the active one marked, plus the add affordance', () => {
+    const confs = [
+      { id: 'siggraph-2026', name: 'SIGGRAPH 2026', accent: '#3d5af1', dateRange: 'Jul 19–23', location: 'Los Angeles', dataVersion: '2026-07-20', source: 'bundled' },
+      { id: 'gdc-2026', name: 'GDC 2026', accent: '#0d9488', dateRange: 'Mar 16–20', location: 'San Francisco', dataVersion: '2026-03-01', source: 'bundled' },
+    ]
+    const html = renderToStaticMarkup(
+      <ConferenceSwitcher conferences={confs} activeId="siggraph-2026"
+        onSwitch={noop} onAdded={noop} onClose={noop} onToast={noop} />,
+    )
+    expect(html).toContain('Your conferences')
+    expect(html).toContain('SIGGRAPH 2026')
+    expect(html).toContain('GDC 2026')
+    expect(html).toContain('Los Angeles')
+    expect(html).toContain('is-active')              // active row highlighted
+    expect(html).toContain('Add a conference')       // add affordance present
+  })
+})
+
+function assert_ok(cond) { expect(cond).toBe(true) }

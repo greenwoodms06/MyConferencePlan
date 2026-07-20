@@ -12,6 +12,8 @@ import {
 } from './lib/storage.js'
 
 import { applyTheme, getTheme } from './lib/theme.js'
+import { listConferences, loadConference, resolveActive, setActiveId } from './lib/registry.js'
+import ConferenceSwitcher from './components/ConferenceSwitcher.jsx'
 import PickerView from './components/PickerView.jsx'
 import ColumnsView from './components/ColumnsView.jsx'
 import ChangeBanner from './components/ChangeBanner.jsx'
@@ -35,6 +37,9 @@ export default function App() {
   const [warn, setWarn] = useState(null)
   const [theme, setTheme] = useState(getTheme)
   const [detailId, setDetailId] = useState(null)
+  const [conferences, setConferences] = useState([])
+  const [activeId, setActiveIdState] = useState(null)
+  const [showSwitcher, setShowSwitcher] = useState(false)
 
   useEffect(() => {
     if (!toast) return
@@ -42,21 +47,39 @@ export default function App() {
     return () => clearTimeout(timer)
   }, [toast])
 
-  // ---- load conference data -------------------------------------------------
+  // ---- discover conferences, pick the active one ----------------------------
   useEffect(() => {
     let cancelled = false
-    Promise.all([
-      fetch(`${base}data/config.json`).then((r) => r.json()),
-      fetch(`${base}data/sessions.json`).then((r) => r.json()),
-    ])
-      .then(([config, sessions]) => {
+    listConferences()
+      .then((list) => {
         if (cancelled) return
-        setData({ config, sessions })
-        setActiveDay(config.days[0]?.key ?? null)
+        setConferences(list)
+        const id = resolveActive(list)
+        if (id) setActiveIdState(id)
+        else setError(new Error('No conferences available.'))
       })
       .catch((e) => !cancelled && setError(e))
     return () => { cancelled = true }
   }, [])
+
+  // ---- load the active conference's data (re-runs on switch) -----------------
+  useEffect(() => {
+    if (!activeId || !conferences.length) return
+    const entry = conferences.find((c) => c.id === activeId)
+    if (!entry) return
+    let cancelled = false
+    setData(null)
+    setJournal(null)
+    loadConference(entry)
+      .then(({ config, sessions }) => {
+        if (cancelled) return
+        setData({ config, sessions })
+        setActiveDay(config.days[0]?.key ?? null)
+        setView('picker')
+      })
+      .catch((e) => !cancelled && setError(e))
+    return () => { cancelled = true }
+  }, [activeId, conferences])
 
   // ---- load the journal + imported columns for this conference --------------
   useEffect(() => {
@@ -158,6 +181,18 @@ export default function App() {
     )
   }, [journal, data])
 
+  const switchTo = useCallback((id) => {
+    setActiveId(id)
+    setActiveIdState(id)
+    setShowSwitcher(false)
+  }, [])
+
+  const onConferenceAdded = useCallback((entry) => {
+    setConferences((list) =>
+      list.some((c) => c.id === entry.id) ? list.map((c) => (c.id === entry.id ? entry : c)) : [...list, entry])
+    switchTo(entry.id)
+  }, [switchTo])
+
   const handleImportFile = useCallback(async (file) => {
     try {
       const parsed = JSON.parse(await file.text())
@@ -188,7 +223,11 @@ export default function App() {
     <div className="app">
       <header className="app-header">
         <div className="app-header-main">
-          <h1>{config.name}</h1>
+          <button className="conf-trigger" onClick={() => setShowSwitcher(true)}
+            aria-label="Switch conference">
+            <h1>{config.name}</h1>
+            <span className="conf-caret" aria-hidden="true">▾</span>
+          </button>
           <p className="app-header-sub">
             {pickedIds.size} picked
             {conflicts.size > 0 && <> · <span className="warn">{conflicts.size} in overlap</span></>}
@@ -277,6 +316,17 @@ export default function App() {
             )
             markAutoBackup()
           }}
+        />
+      )}
+
+      {showSwitcher && (
+        <ConferenceSwitcher
+          conferences={conferences}
+          activeId={activeId}
+          onSwitch={switchTo}
+          onAdded={onConferenceAdded}
+          onClose={() => setShowSwitcher(false)}
+          onToast={setToast}
         />
       )}
 
