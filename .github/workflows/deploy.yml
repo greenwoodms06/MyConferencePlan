@@ -51,7 +51,8 @@ jobs:
         # until someone opens the deployed page.
         run: |
           test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
-          test -f dist/data/sessions.json || { echo "::error::conference data missing from dist"; exit 1; }
+          test -f dist/data/index.json || { echo "::error::conference manifest missing from dist"; exit 1; }
+          test -f dist/data/siggraph-2026/sessions.json || { echo "::error::siggraph-2026 data missing from dist"; exit 1; }
           grep -q "${BASE_PATH}assets/" dist/index.html \
             || { echo "::error::index.html does not reference ${BASE_PATH}assets/"; exit 1; }
           echo "dist/ looks correct for base ${BASE_PATH}"
