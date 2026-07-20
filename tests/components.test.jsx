@@ -95,15 +95,14 @@ describe('PickerView', () => {
     for (const track of multi.tracks) expect(html).toContain(track)
   })
 
-  test('a session outside the badge tier is marked restricted, not hidden', () => {
+  test('access tiers are shown on the card, never hidden (warn, not block)', () => {
     const restricted = sessions.find((s) => s.access?.length && !s.access.includes('D'))
     const html = renderToStaticMarkup(
       <SessionCard session={restricted} config={config} picked={false}
-        conflicted={false} tier="D" onToggle={noop} onNote={noop} />,
+        overlapWith={null} onToggle={noop} onNote={noop} onRate={noop} />,
     )
-    expect(html).toContain('is-restricted')
-    expect(html).toContain('not on your badge')
-    expect(html).toContain(restricted.title) // still present — warn, don't block
+    expect(html).toContain(restricted.title)                 // never hidden
+    expect(html).toContain(restricted.access.join(' · '))    // tier list shown
   })
 
   test('conflicting picks are flagged', () => {
@@ -116,7 +115,7 @@ describe('PickerView', () => {
         journal={journalWith([a.id, b.id])} />,
     )
     expect(html).toContain('is-conflicted')
-    expect(html).toContain('Overlaps another pick')
+    expect(html).toContain('Overlaps')     // amber overlap chip
   })
 })
 
@@ -128,7 +127,7 @@ describe('ColumnsView', () => {
 
   test('empty state when nothing is picked for the day', () => {
     const html = renderToStaticMarkup(<ColumnsView {...base} journal={journalWith([])} />)
-    expect(html).toContain('Nothing selected for this day yet')
+    expect(html).toContain('Nothing picked for this day yet')
   })
 
   test('proportional axis: block offset and height track real times', () => {
@@ -140,7 +139,7 @@ describe('ColumnsView', () => {
     expect(html).toContain('hour-mark')
     // Absolute positioning is what makes gaps legible; without it the view
     // cannot answer "when is everyone free".
-    expect(html).toMatch(/class="block[^"]*"[^>]*style="top:/)
+    expect(html).toMatch(/class="block[^"]*"[^>]*style="[^"]*top:/)
     for (const s of picks) expect(html).toContain(s.title)
   })
 
@@ -149,7 +148,7 @@ describe('ColumnsView', () => {
     const html = renderToStaticMarkup(
       <ColumnsView {...base} journal={journalWith([pick.id], { sender: { id: 'me', name: 'Sam' } })} />,
     )
-    expect(html).toContain('is-me')
+    expect(html).toContain('sticky')   // Me head pinned as the anchor
     expect(html).toContain('Sam')
   })
 
@@ -195,7 +194,7 @@ describe('ColumnsView', () => {
     )
     expect(html).toContain('Compact')
     expect(html).not.toContain('compact-columns')  // proportional is the default
-    expect(html).toContain('timeline-columns')
+    expect(html).toContain('timeline-inner')
   })
 })
 
@@ -233,8 +232,8 @@ describe('dialogs and banners', () => {
     expect(html).toContain('A new column')
     expect(html).toContain('Replace')
     // Auto-matched by stable sender id -> confirmation, not a quiz.
-    expect(html).toContain('same person')
-    expect(html).toContain('Your name, colour and column position stay as they are')
+    expect(html).toContain('Matched an existing column by sender ID')
+    expect(html).toContain('colour and column position stay as they are')
   })
 
   test('ImportDialog refuses a file from a different conference', () => {
@@ -255,8 +254,8 @@ describe('dialogs and banners', () => {
         storage={{ supported: true, persisted: false, usage: 51200, quota: 1e9 }}
         onClose={noop} onSetTier={noop} onSetName={noop} onBackup={noop} />,
     )
-    expect(html).toContain('may clear your picks and notes')
-    expect(html).toContain('Download a backup now')
+    expect(html).toContain('not granted')
+    expect(html).toContain('Back up now')
     for (const level of config.accessLevels) expect(html).toContain(level.label)
   })
 })

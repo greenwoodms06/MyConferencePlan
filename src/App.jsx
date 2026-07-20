@@ -30,6 +30,7 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false)
   const [storage, setStorage] = useState(null)
   const [toast, setToast] = useState(null)
+  const [warn, setWarn] = useState(null)
 
   useEffect(() => {
     if (!toast) return
@@ -115,14 +116,25 @@ export default function App() {
   }, [journal])
 
   // ---- actions ------------------------------------------------------------
+  const addSession = useCallback((session) => {
+    commit(addPick(journal, session, data.config.dataVersion))
+  }, [journal, data, commit])
+
   const togglePick = useCallback((session) => {
     if (!journal) return
-    commit(
-      pickedIds.has(session.id)
-        ? removePick(journal, session.id)
-        : addPick(journal, session, data.config.dataVersion),
-    )
-  }, [journal, pickedIds, data, commit])
+    if (pickedIds.has(session.id)) {
+      commit(removePick(journal, session.id))
+      return
+    }
+    // Warn, don't block (SPEC §9.1): adding a session outside your badge tier
+    // prompts, but always proceeds.
+    const tier = journal.profile.accessTier
+    if (tier && session.access?.length && !session.access.includes(tier)) {
+      setWarn(session)
+      return
+    }
+    addSession(session)
+  }, [journal, pickedIds, addSession, commit])
 
   const exportIcs = useCallback(() => {
     if (!pickedSessions.length) {
@@ -174,13 +186,13 @@ export default function App() {
         <div className="app-header-main">
           <h1>{config.name}</h1>
           <p className="app-header-sub">
-            {pickedIds.size} selected
-            {conflicts.size > 0 && <> · <span className="warn">{conflicts.size} in conflict</span></>}
+            {pickedIds.size} picked
+            {conflicts.size > 0 && <> · <span className="warn">{conflicts.size} in overlap</span></>}
           </p>
         </div>
         <div className="app-header-actions">
-          <button onClick={exportIcs} title="Download .ics for your calendar">Calendar</button>
-          <button onClick={() => setShowSettings(true)} aria-label="Settings">⚙</button>
+          <button className="icon-btn" onClick={exportIcs} aria-label="Export .ics" title="Export .ics">⤓</button>
+          <button className="icon-btn" onClick={() => setShowSettings(true)} aria-label="Settings" title="Settings">⚙</button>
         </div>
       </header>
 
@@ -249,6 +261,7 @@ export default function App() {
           onClose={() => setShowSettings(false)}
           onSetTier={(tier) => commit(setAccessTier(journal, tier))}
           onSetName={(name) => commit({ ...journal, sender: { ...journal.sender, name } })}
+          onIcs={exportIcs}
           onBackup={async () => {
             downloadFile(
               `myconferenceplan-backup-${new Date().toISOString().slice(0, 10)}.json`,
@@ -257,6 +270,23 @@ export default function App() {
             markAutoBackup()
           }}
         />
+      )}
+
+      {warn && (
+        <div className="dialog-scrim" onClick={() => setWarn(null)}>
+          <div className="dialog" onClick={(e) => e.stopPropagation()}>
+            <h2>Outside your badge tier</h2>
+            <p className="dialog-meta" style={{ marginTop: 6, lineHeight: 1.5 }}>
+              “{warn.title}” requires {warn.access.join(' · ')}. Your badge is{' '}
+              {journal.profile.accessTier} — badges get upgraded and sessions open up,
+              so you can keep it on your list.
+            </p>
+            <div className="dialog-actions">
+              <button className="btn-outline" onClick={() => setWarn(null)}>Cancel</button>
+              <button className="btn-primary" onClick={() => { addSession(warn); setWarn(null) }}>Add anyway</button>
+            </div>
+          </div>
+        </div>
       )}
 
       {toast && (

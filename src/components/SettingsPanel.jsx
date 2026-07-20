@@ -1,73 +1,50 @@
-/** Settings: badge tier, display name, and an honest storage report.
- *
- *  The storage section exists because the journal holds hand-authored notes
- *  that cannot be regenerated, and browsers evict script-writable storage.
- *  Telling the user they're unprotected beats letting them find out by data
- *  loss (SPEC sect. 5.3).
- */
+/** Settings — bottom sheet (Companion design). Badge tier, display name, and an
+ *  honest storage report (the journal holds hand-authored notes browsers can
+ *  evict; telling the user beats silent data loss — SPEC §5.3). */
 export default function SettingsPanel({
-  config, journal, storage, onClose, onSetTier, onSetName, onBackup,
+  config, journal, storage, onClose, onSetTier, onSetName, onBackup, onIcs,
 }) {
+  const tier = journal.profile.accessTier
   return (
-    <div className="dialog-backdrop" onClick={onClose}>
-      <div className="dialog" onClick={(e) => e.stopPropagation()}>
+    <>
+      <div className="scrim" onClick={onClose} />
+      <div className="sheet" role="dialog" aria-label="Settings">
+        <div className="sheet-grip" />
         <h2>Settings</h2>
 
-        <label>
-          Your name (shown when you share)
-          <input
-            value={journal.sender.name}
-            onChange={(e) => onSetName(e.target.value)}
-            placeholder="Me"
-          />
+        <label style={{ display: 'block', marginTop: 14 }}>
+          <span className="detail-caption" style={{ margin: 0 }}>Your name (shown when you share)</span>
+          <input className="session-note" style={{ width: '100%', marginTop: 4 }}
+            value={journal.sender.name} placeholder="Me"
+            onChange={(e) => onSetName(e.target.value)} />
         </label>
 
         {config.accessLevels?.length > 0 && (
-          <label>
-            Your badge
-            <select
-              value={journal.profile.accessTier ?? ''}
-              onChange={(e) => onSetTier(e.target.value || null)}
-            >
-              <option value="">Not set — show everything</option>
+          <>
+            <p className="filter-hint">My badge tier — sessions outside it warn, never block</p>
+            <div className="tier-row">
+              <button className="tier-btn" aria-pressed={!tier} onClick={() => onSetTier(null)}>Any</button>
               {config.accessLevels.map((level) => (
-                <option key={level.id} value={level.id}>{level.label}</option>
+                <button key={level.id} className="tier-btn" aria-pressed={tier === level.id}
+                  onClick={() => onSetTier(level.id)} title={level.label}>{level.id}</button>
               ))}
-            </select>
-          </label>
+            </div>
+          </>
         )}
-        <p className="muted">
-          Your badge only adds a warning — it never stops you adding a session.
-          Badges get upgraded and sessions get opened up.
-        </p>
 
-        <section className="settings-storage">
-          <h3>Your data</h3>
-          {storage?.persisted ? (
-            <p className="ok">Your notes are marked as persistent on this device.</p>
-          ) : (
-            <p className="warn">
-              This browser may clear your picks and notes if you don’t open the app
-              for a while. Keep a backup.
-            </p>
-          )}
-          {storage?.usage != null && (
-            <p className="muted">
-              Using {(storage.usage / 1024).toFixed(0)} KB
-              {storage.quota ? ` of ~${(storage.quota / 1024 / 1024).toFixed(0)} MB available` : ''}.
-            </p>
-          )}
-          <button onClick={onBackup}>Download a backup now</button>
-          <p className="muted">
-            The backup includes every conference, your notes and ratings. It lands in
-            your Downloads folder, which the browser never clears.
-          </p>
-        </section>
+        <div className="storage-well">
+          {storage?.persisted
+            ? <>Persistent storage: <span className="ok">granted</span></>
+            : <>Persistent storage: <span className="warn">not granted — keep a backup</span></>}
+          {storage?.usage != null && ` · ${(storage.usage / 1024 / 1024).toFixed(1)} MB used`}
+          <br /><span className="muted">Auto-backup runs at the end of each conference day, into your Downloads folder.</span>
+        </div>
 
-        <div className="dialog-actions">
-          <button onClick={onClose}>Done</button>
+        <div className="sheet-actions">
+          <button className="btn-primary" onClick={onBackup}>Back up now</button>
+          {onIcs && <button className="btn-outline" onClick={onIcs}>Export .ics</button>}
         </div>
       </div>
-    </div>
+    </>
   )
 }

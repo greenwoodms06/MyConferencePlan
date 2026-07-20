@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react'
 import SessionCard from './SessionCard.jsx'
 import { toMinutes } from '../lib/time.js'
-import { canAttend } from '../lib/journal.js'
+import { trackColor } from '../lib/palette.js'
 
 /**
- * The browse view. Vertical, time-ordered, one day at a time.
+ * Browse view. Vertical, time-ordered, one day at a time.
  *
- * Filters are DERIVED FROM THE DATA, not declared in config (SPEC sect. 9.1) —
- * a cross-listed session appears under every track it belongs to, which is
- * correct rather than a duplicate.
+ * Filters are DERIVED FROM THE DATA (SPEC §9.1) — a cross-listed session
+ * appears under every track it belongs to, which is correct, not a duplicate.
+ * Filters live in a bottom sheet (Companion design).
  */
 export default function PickerView({
   config, sessions, activeDay, setActiveDay, pickedIds, conflicts,
@@ -19,23 +19,22 @@ export default function PickerView({
   const [exclude, setExclude] = useState(() => new Set())
   const [tagInclude, setTagInclude] = useState(() => new Set())
   const [onlyPicked, setOnlyPicked] = useState(false)
-  const [hideRestricted, setHideRestricted] = useState(false)
   const [filtersOpen, setFiltersOpen] = useState(false)
 
-  const tier = journal.profile.accessTier
-  const notes = useMemo(
-    () => new Map(journal.picks.map((p) => [p.id, p.notes])),
+  const byId = useMemo(() => new Map(sessions.map((s) => [s.id, s])), [sessions])
+  const pickState = useMemo(
+    () => new Map(journal.picks.map((p) => [p.id, p])),
     [journal],
   )
 
   const dayCounts = useMemo(() => {
     const counts = new Map()
     for (const id of pickedIds) {
-      const session = sessions.find((s) => s.id === id)
+      const session = byId.get(id)
       if (session) counts.set(session.day, (counts.get(session.day) ?? 0) + 1)
     }
     return counts
-  }, [pickedIds, sessions])
+  }, [pickedIds, byId])
 
   const daySessions = useMemo(
     () => sessions.filter((s) => s.day === activeDay),
@@ -50,7 +49,6 @@ export default function PickerView({
     return daySessions
       .filter((s) => {
         if (onlyPicked && !pickedIds.has(s.id)) return false
-        if (hideRestricted && !canAttend(s, tier, config.accessLevels)) return false
         if (include.size && !s.tracks.some((t) => include.has(t))) return false
         if (exclude.size && s.tracks.some((t) => exclude.has(t))) return false
         if (tagInclude.size && !(s.tags ?? []).some((t) => tagInclude.has(t))) return false
@@ -64,43 +62,39 @@ export default function PickerView({
         )
       })
       .sort((a, b) => toMinutes(a.start) - toMinutes(b.start) || a.title.localeCompare(b.title))
-  }, [daySessions, query, include, exclude, tagInclude, onlyPicked, hideRestricted, pickedIds, tier, config])
+  }, [daySessions, query, include, exclude, tagInclude, onlyPicked, pickedIds])
 
-  const cycleTrack = (track) => {
-    // none -> include -> exclude -> none
-    if (include.has(track)) {
-      setInclude(without(include, track))
-      setExclude(with_(exclude, track))
-    } else if (exclude.has(track)) {
-      setExclude(without(exclude, track))
-    } else {
-      setInclude(with_(include, track))
+  /** Title of the first pick this one overlaps, for the amber chip. */
+  const overlapTitle = (id) => {
+    const others = conflicts.get(id)
+    if (!others) return null
+    for (const otherId of others) {
+      const s = byId.get(otherId)
+      if (s) return s.title
     }
+    return null
   }
 
-  const activeFilters =
-    include.size + exclude.size + tagInclude.size + (onlyPicked ? 1 : 0) + (hideRestricted ? 1 : 0)
+  const cycleTrack = (track) => {
+    if (include.has(track)) { setInclude(without(include, track)); setExclude(with_(exclude, track)) }
+    else if (exclude.has(track)) setExclude(without(exclude, track))
+    else setInclude(with_(include, track))
+  }
 
+  const activeFilters = include.size + exclude.size + tagInclude.size + (onlyPicked ? 1 : 0)
   const clearAll = () => {
-    setInclude(new Set()); setExclude(new Set()); setTagInclude(new Set())
-    setOnlyPicked(false); setHideRestricted(false)
+    setInclude(new Set()); setExclude(new Set()); setTagInclude(new Set()); setOnlyPicked(false)
   }
 
   return (
     <>
       <div className="day-tabs" role="tablist">
         {config.days.map((day) => (
-          <button
-            key={day.key}
-            role="tab"
-            aria-selected={day.key === activeDay}
-            onClick={() => setActiveDay(day.key)}
-          >
+          <button key={day.key} role="tab" aria-selected={day.key === activeDay}
+            onClick={() => setActiveDay(day.key)}>
             <span className="day-label">{day.label}</span>
             <span className="day-date">{day.date}</span>
-            {dayCounts.get(day.key) > 0 && (
-              <span className="day-count">{dayCounts.get(day.key)}</span>
-            )}
+            {dayCounts.get(day.key) > 0 && <span className="day-count">{dayCounts.get(day.key)}</span>}
           </button>
         ))}
       </div>
@@ -113,106 +107,87 @@ export default function PickerView({
           onChange={(e) => setQuery(e.target.value)}
           aria-label="Search sessions"
         />
-        <button
-          className={activeFilters ? 'is-active' : ''}
-          onClick={() => setFiltersOpen((v) => !v)}
-          aria-expanded={filtersOpen}
-        >
-          Filters{activeFilters > 0 && ` (${activeFilters})`}
+        <button className={activeFilters ? 'is-active' : ''} onClick={() => setFiltersOpen(true)}>
+          Filters{activeFilters > 0 && ` · ${activeFilters}`}
         </button>
       </div>
 
-      {filtersOpen && (
-        <div className="filter-panel">
-          <div className="filter-toggles">
-            <label>
-              <input type="checkbox" checked={onlyPicked}
-                onChange={(e) => setOnlyPicked(e.target.checked)} />
-              Only my picks
-            </label>
-            {tier && (
-              <label>
-                <input type="checkbox" checked={hideRestricted}
-                  onChange={(e) => setHideRestricted(e.target.checked)} />
-                Hide sessions my badge can’t attend
-              </label>
-            )}
-          </div>
-
-          <p className="filter-hint">
-            Tap a track to include, tap again to exclude, once more to clear.
-          </p>
-          <div className="filter-chips">
-            {tracks.map(([track, count]) => (
-              <button
-                key={track}
-                className={[
-                  'filter-chip',
-                  include.has(track) && 'is-include',
-                  exclude.has(track) && 'is-exclude',
-                ].filter(Boolean).join(' ')}
-                onClick={() => cycleTrack(track)}
-              >
-                {track} <span className="filter-count">{count}</span>
-              </button>
-            ))}
-          </div>
-
-          {tags.length > 0 && (
-            <>
-              <p className="filter-hint">
-                Topics — seeded from titles, so coverage is partial.
-              </p>
-              <div className="filter-chips">
-                {tags.map(([tag, count]) => (
-                  <button
-                    key={tag}
-                    className={`filter-chip ${tagInclude.has(tag) ? 'is-include' : ''}`}
-                    onClick={() => setTagInclude(
-                      tagInclude.has(tag) ? without(tagInclude, tag) : with_(tagInclude, tag),
-                    )}
-                  >
-                    {tag} <span className="filter-count">{count}</span>
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-
-          {activeFilters > 0 && (
-            <button className="link-button" onClick={clearAll}>Clear all filters</button>
-          )}
-        </div>
-      )}
-
-      <p className="result-count">
-        {visible.length} of {daySessions.length} sessions
-      </p>
+      <p className="result-count">{visible.length} of {daySessions.length} sessions</p>
 
       {visible.length === 0 ? (
         <div className="empty-state">
-          <p>Nothing matches these filters on this day.</p>
-          <button className="link-button" onClick={() => { setQuery(''); clearAll() }}>
-            Clear filters
-          </button>
+          No sessions match — clear a filter or two.
+          {activeFilters > 0 && (
+            <button className="link-button" style={{ display: 'block', margin: '10px auto 0' }}
+              onClick={() => { setQuery(''); clearAll() }}>Clear all</button>
+          )}
         </div>
       ) : (
         <ul className="session-list">
-          {visible.map((session) => (
-            <li key={session.id}>
-              <SessionCard
-                session={session}
-                config={config}
-                picked={pickedIds.has(session.id)}
-                conflicted={conflicts.has(session.id)}
-                tier={tier}
-                onToggle={onTogglePick}
-                note={notes.get(session.id)}
-                onNote={(id, value) => onUpdatePick(id, { notes: value })}
-              />
-            </li>
-          ))}
+          {visible.map((session) => {
+            const pick = pickState.get(session.id)
+            return (
+              <li key={session.id}>
+                <SessionCard
+                  session={session}
+                  config={config}
+                  picked={pickedIds.has(session.id)}
+                  overlapWith={overlapTitle(session.id)}
+                  onToggle={onTogglePick}
+                  note={pick?.notes}
+                  onNote={(id, value) => onUpdatePick(id, { notes: value })}
+                  rating={pick?.rating}
+                  onRate={(id, value) => onUpdatePick(id, { rating: value })}
+                />
+              </li>
+            )
+          })}
         </ul>
+      )}
+
+      {filtersOpen && (
+        <>
+          <div className="scrim" onClick={() => setFiltersOpen(false)} />
+          <div className="sheet" role="dialog" aria-label="Filters">
+            <div className="sheet-grip" />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h2>Filters</h2>
+              {activeFilters > 0 && <button className="link-button" onClick={clearAll}>Clear all</button>}
+            </div>
+
+            <button className="only-toggle" aria-pressed={onlyPicked}
+              onClick={() => setOnlyPicked((v) => !v)}>
+              <span className="only-box">{onlyPicked ? '✓' : ''}</span> Only my picks
+            </button>
+
+            <p className="filter-hint">Tap a track to include, again to exclude, once more to clear.</p>
+            <div className="filter-chips">
+              {tracks.map(([track, count]) => (
+                <button key={track}
+                  className={['filter-chip', include.has(track) && 'is-include', exclude.has(track) && 'is-exclude'].filter(Boolean).join(' ')}
+                  style={include.has(track) ? { '--chip': trackColor(track, config) } : undefined}
+                  onClick={() => cycleTrack(track)}>
+                  {track} <span className="count">{count}</span>
+                </button>
+              ))}
+            </div>
+
+            {tags.length > 0 && (
+              <>
+                <p className="filter-hint">Topics — seeded from titles, so coverage is partial.</p>
+                <div className="filter-chips">
+                  {tags.map(([tag, count]) => (
+                    <button key={tag}
+                      className={`filter-chip ${tagInclude.has(tag) ? 'is-include' : ''}`}
+                      onClick={() => setTagInclude(tagInclude.has(tag) ? without(tagInclude, tag) : with_(tagInclude, tag))}>
+                      {tag} <span className="count">{count}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </>
       )}
     </>
   )
@@ -227,14 +202,5 @@ function tally(sessions, pick) {
   return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
 }
 
-function with_(set, value) {
-  const next = new Set(set)
-  next.add(value)
-  return next
-}
-
-function without(set, value) {
-  const next = new Set(set)
-  next.delete(value)
-  return next
-}
+const with_ = (set, value) => new Set(set).add(value)
+const without = (set, value) => { const n = new Set(set); n.delete(value); return n }
