@@ -11,11 +11,13 @@ import {
   saveColumns, saveJournal, shouldAutoBackup, storageReport,
 } from './lib/storage.js'
 
+import { applyTheme, getTheme } from './lib/theme.js'
 import PickerView from './components/PickerView.jsx'
 import ColumnsView from './components/ColumnsView.jsx'
 import ChangeBanner from './components/ChangeBanner.jsx'
 import ImportDialog from './components/ImportDialog.jsx'
 import SettingsPanel from './components/SettingsPanel.jsx'
+import DetailSheet from './components/DetailSheet.jsx'
 
 const base = import.meta.env.BASE_URL
 
@@ -31,6 +33,8 @@ export default function App() {
   const [storage, setStorage] = useState(null)
   const [toast, setToast] = useState(null)
   const [warn, setWarn] = useState(null)
+  const [theme, setTheme] = useState(getTheme)
+  const [detailId, setDetailId] = useState(null)
 
   useEffect(() => {
     if (!toast) return
@@ -224,6 +228,7 @@ export default function App() {
           journal={journal}
           onTogglePick={togglePick}
           onUpdatePick={(id, patch) => commit(updatePick(journal, id, patch))}
+          onOpenDetail={(s) => setDetailId(s.id)}
         />
       ) : (
         <ColumnsView
@@ -237,6 +242,7 @@ export default function App() {
           onColumnsChange={(next) => commitColumns(next, config.conferenceId)}
           onImportFile={handleImportFile}
           onExportShare={exportShare}
+          onOpen={(s) => setDetailId(s.id)}
         />
       )}
 
@@ -258,6 +264,8 @@ export default function App() {
           config={config}
           journal={journal}
           storage={storage}
+          theme={theme}
+          onSetTheme={(t) => setTheme(applyTheme(t))}
           onClose={() => setShowSettings(false)}
           onSetTier={(tier) => commit(setAccessTier(journal, tier))}
           onSetName={(name) => commit({ ...journal, sender: { ...journal.sender, name } })}
@@ -271,6 +279,29 @@ export default function App() {
           }}
         />
       )}
+
+      {detailId && (() => {
+        const s = sessionsById.get(detailId)
+        if (!s) { setDetailId(null); return null }
+        const pick = journal.picks.find((p) => p.id === detailId)
+        return (
+          <DetailSheet
+            session={s} config={config} picked={pickedIds.has(detailId)}
+            overlapWith={(() => {
+              for (const otherId of conflicts.get(detailId) ?? []) {
+                const o = sessionsById.get(otherId); if (o) return o.title
+              }
+              return null
+            })()}
+            tier={journal.profile.accessTier}
+            note={pick?.notes} rating={pick?.rating}
+            onToggle={(sess) => togglePick(sess)}
+            onNote={(id, v) => commit(updatePick(journal, id, { notes: v }))}
+            onRate={(id, v) => commit(updatePick(journal, id, { rating: v }))}
+            onClose={() => setDetailId(null)}
+          />
+        )
+      })()}
 
       {warn && (
         <div className="dialog-scrim" onClick={() => setWarn(null)}>

@@ -48,6 +48,69 @@
   --tap: 44px;
 }
 
+/* Dark palette. Applied when the user forces dark, or when they leave it on
+   'system' and the OS is dark. Light stays the base above; explicit light wins. */
+:root[data-theme="dark"],
+:root[data-theme="system"] {
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="system"] {
+    --page: #0d1016;
+    --surface: #141922;
+    --card: #1b2029;
+    --well: #232a35;
+    --hairline: #2a323d;
+    --ink: #e8ebf1;
+    --ink-2: #c1c7d2;
+    --ink-3: #99a1af;
+    --ink-4: #6c7482;
+    --disabled: #39414d;
+    --accent: #7189ff;
+    --accent-deep: #9aabff;
+    --accent-tint: #1d2740;
+    --accent-muted: #3b4a80;
+    --warn: #e39a5b;
+    --warn-bg: #fbbf241f;
+    --warn-ring: #e39a5b;
+    --destructive: #f28c86;
+    --destructive-bg: #3a1e1c;
+    --rating: #f5b942;
+    --success: #3fd6a0;
+    --sh-rest: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --sh-control: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --sh-sheet: 0 -8px 30px rgba(0, 0, 0, 0.5);
+    --sh-dialog: 0 12px 40px rgba(0, 0, 0, 0.6);
+  }
+}
+:root[data-theme="dark"] {
+  --page: #0d1016;
+  --surface: #141922;
+  --card: #1b2029;
+  --well: #232a35;
+  --hairline: #2a323d;
+  --ink: #e8ebf1;
+  --ink-2: #c1c7d2;
+  --ink-3: #99a1af;
+  --ink-4: #6c7482;
+  --disabled: #39414d;
+  --accent: #7189ff;
+  --accent-deep: #9aabff;
+  --accent-tint: #1d2740;
+  --accent-muted: #3b4a80;
+  --warn: #e39a5b;
+  --warn-bg: #fbbf241f;
+  --warn-ring: #e39a5b;
+  --destructive: #f28c86;
+  --destructive-bg: #3a1e1c;
+  --rating: #f5b942;
+  --success: #3fd6a0;
+  --sh-rest: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --sh-control: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --sh-sheet: 0 -8px 30px rgba(0, 0, 0, 0.5);
+  --sh-dialog: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
 * { box-sizing: border-box; }
 
 body {
@@ -249,7 +312,7 @@ input::placeholder { color: var(--ink-4); }
 .session-picked-row { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
 .session-note {
   flex: 1; min-width: 0; padding: 8px 11px; border: 1px solid var(--hairline);
-  border-radius: 10px; background: #f9fafb; font: 400 12.5px inherit;
+  border-radius: 10px; background: var(--surface); font: 400 12.5px inherit;
   outline: none; color: var(--ink); resize: none;
 }
 .stars { display: flex; flex: none; }

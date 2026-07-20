@@ -2,7 +2,7 @@
  *  honest storage report (the journal holds hand-authored notes browsers can
  *  evict; telling the user beats silent data loss — SPEC §5.3). */
 export default function SettingsPanel({
-  config, journal, storage, onClose, onSetTier, onSetName, onBackup, onIcs,
+  config, journal, storage, theme, onSetTheme, onClose, onSetTier, onSetName, onBackup, onIcs,
 }) {
   const tier = journal.profile.accessTier
   return (
@@ -11,6 +11,16 @@ export default function SettingsPanel({
       <div className="sheet" role="dialog" aria-label="Settings">
         <div className="sheet-grip" />
         <h2>Settings</h2>
+
+        <p className="filter-hint" style={{ marginTop: 14 }}>Appearance</p>
+        <div className="segmented" style={{ width: 'fit-content' }}>
+          {['system', 'light', 'dark'].map((t) => (
+            <button key={t} aria-selected={theme === t}
+              onClick={() => onSetTheme(t)} style={{ textTransform: 'capitalize' }}>
+              {t}
+            </button>
+          ))}
+        </div>
 
         <label style={{ display: 'block', marginTop: 14 }}>
           <span className="detail-caption" style={{ margin: 0 }}>Your name (shown when you share)</span>

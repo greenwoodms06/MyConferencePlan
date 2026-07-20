@@ -99,6 +99,59 @@ try {
     await page.waitForTimeout(200)
   })
 
+  await check('Browse view-model: List/Timeline x Everything/By track', async () => {
+    // Timeline axis reuses the shared column-timeline.
+    await page.getByRole('tab', { name: /Timeline/ }).click()
+    await page.waitForTimeout(300)
+    assert(await page.locator('.timeline-inner .block').count() > 0, 'no timeline blocks')
+    // Group by track -> one column per track.
+    await page.getByLabel('Group by').selectOption('track')
+    await page.waitForTimeout(300)
+    const cols = await page.locator('.tl-col-head .label').allInnerTexts()
+    assert(cols.length > 1, `expected multiple track columns, got ${cols.length}`)
+    // List + By room -> horizontal facet columns of mini cards.
+    await page.getByRole('tab', { name: /List/ }).click()
+    await page.getByLabel('Group by').selectOption('room')
+    await page.waitForTimeout(300)
+    assert(await page.locator('.facet-col').count() > 1, 'no room facet columns')
+    // Back to List / Everything.
+    await page.getByLabel('Group by').selectOption('all')
+    await page.waitForTimeout(200)
+    assert(await page.locator('.session-list').count() === 1, 'did not return to list')
+  })
+
+  await check('tapping a title opens the detail sheet with the session page link', async () => {
+    await page.locator('.session-title').first().click()
+    await page.waitForSelector('.sheet[aria-label]')
+    const sheet = await page.locator('.sheet').innerText()
+    assert(/Add to my day|Remove from my day/.test(sheet), 'detail actions missing')
+    const link = page.locator('.sheet a', { hasText: 'Session page' })
+    if (await link.count()) {
+      assert((await link.getAttribute('href'))?.startsWith('https://'), 'session link not absolute')
+      assert((await link.getAttribute('rel'))?.includes('noopener'), 'session link missing noopener')
+    }
+    await page.locator('.scrim').click({ position: { x: 5, y: 5 } })
+    await page.waitForTimeout(200)
+  })
+
+  await check('theme: Dark applies dark tokens and persists', async () => {
+    await page.getByRole('button', { name: 'Settings' }).click()
+    await page.waitForSelector('.sheet')
+    await page.getByRole('button', { name: 'dark', exact: true }).click()
+    await page.waitForTimeout(200)
+    const attr = await page.evaluate(() => document.documentElement.getAttribute('data-theme'))
+    assert(attr === 'dark', `data-theme was ${attr}`)
+    const page_bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor)
+    // dark --page is #0d1016 -> rgb(13, 16, 22)
+    assert(page_bg === 'rgb(13, 16, 22)', `dark page bg was ${page_bg}`)
+    const stored = await page.evaluate(() => localStorage.getItem('ocp:theme'))
+    assert(stored === 'dark', `theme not persisted (${stored})`)
+    // restore
+    await page.getByRole('button', { name: 'system', exact: true }).click()
+    await page.locator('.scrim').click({ position: { x: 5, y: 5 } })
+    await page.waitForTimeout(200)
+  })
+
   await check('track filter cycles include -> exclude -> clear (in the Filters sheet)', async () => {
     await page.getByRole('button', { name: /^Filters/ }).click()
     await page.waitForSelector('.sheet .filter-chip')

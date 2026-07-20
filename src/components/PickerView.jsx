@@ -1,18 +1,21 @@
 import { useMemo, useState } from 'react'
 import SessionCard from './SessionCard.jsx'
+import ColumnTimeline from './ColumnTimeline.jsx'
 import { toMinutes } from '../lib/time.js'
 import { trackColor } from '../lib/palette.js'
 
 /**
- * Browse view. Vertical, time-ordered, one day at a time.
+ * Browse view. Two orthogonal controls give four modes from one shared
+ * column-timeline component (Companion design):
+ *   Axis:  List | Timeline
+ *   Group: Everything | By track | By room   (facets, config-declarable)
  *
- * Filters are DERIVED FROM THE DATA (SPEC §9.1) — a cross-listed session
- * appears under every track it belongs to, which is correct, not a duplicate.
- * Filters live in a bottom sheet (Companion design).
+ * Filters are DERIVED FROM THE DATA (SPEC §9.1); a cross-listed session appears
+ * under every track it belongs to — correct, not a duplicate.
  */
 export default function PickerView({
   config, sessions, activeDay, setActiveDay, pickedIds, conflicts,
-  journal, onTogglePick, onUpdatePick,
+  journal, onTogglePick, onUpdatePick, onOpenDetail,
 }) {
   const [query, setQuery] = useState('')
   const [include, setInclude] = useState(() => new Set())
@@ -20,27 +23,31 @@ export default function PickerView({
   const [tagInclude, setTagInclude] = useState(() => new Set())
   const [onlyPicked, setOnlyPicked] = useState(false)
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [axis, setAxis] = useState('list')     // 'list' | 'tl'
+  const [group, setGroup] = useState('all')     // facet id
+  const [compact, setCompact] = useState(false)
 
   const byId = useMemo(() => new Map(sessions.map((s) => [s.id, s])), [sessions])
-  const pickState = useMemo(
-    () => new Map(journal.picks.map((p) => [p.id, p])),
-    [journal],
-  )
+  const pickState = useMemo(() => new Map(journal.picks.map((p) => [p.id, p])), [journal])
+
+  // Facets — config may declare them; default to Everything / track / room.
+  const FACETS = useMemo(() => ([
+    { value: 'all', label: 'Everything', key: null },
+    { value: 'track', label: 'By track', key: (s) => s.tracks },
+    { value: 'room', label: 'By room', key: (s) => [s.location || 'TBD'] },
+  ]), [])
+  const facet = FACETS.find((f) => f.value === group) ?? FACETS[0]
 
   const dayCounts = useMemo(() => {
     const counts = new Map()
     for (const id of pickedIds) {
-      const session = byId.get(id)
-      if (session) counts.set(session.day, (counts.get(session.day) ?? 0) + 1)
+      const s = byId.get(id)
+      if (s) counts.set(s.day, (counts.get(s.day) ?? 0) + 1)
     }
     return counts
   }, [pickedIds, byId])
 
-  const daySessions = useMemo(
-    () => sessions.filter((s) => s.day === activeDay),
-    [sessions, activeDay],
-  )
-
+  const daySessions = useMemo(() => sessions.filter((s) => s.day === activeDay), [sessions, activeDay])
   const tracks = useMemo(() => tally(daySessions, (s) => s.tracks), [daySessions])
   const tags = useMemo(() => tally(daySessions, (s) => s.tags ?? []), [daySessions])
 
@@ -64,26 +71,52 @@ export default function PickerView({
       .sort((a, b) => toMinutes(a.start) - toMinutes(b.start) || a.title.localeCompare(b.title))
   }, [daySessions, query, include, exclude, tagInclude, onlyPicked, pickedIds])
 
-  /** Title of the first pick this one overlaps, for the amber chip. */
   const overlapTitle = (id) => {
     const others = conflicts.get(id)
     if (!others) return null
-    for (const otherId of others) {
-      const s = byId.get(otherId)
-      if (s) return s.title
-    }
+    for (const otherId of others) { const s = byId.get(otherId); if (s) return s.title }
     return null
   }
+
+  const facetGroups = () => {
+    const keys = [...new Set(visible.flatMap((s) => facet.key(s)))].sort()
+    return keys.map((k) => ({
+      key: k,
+      color: group === 'track' ? trackColor(k, config) : '#64748b',
+      sessions: visible.filter((s) => facet.key(s).includes(k)),
+    }))
+  }
+
+  const mkItem = (s) => ({
+    id: s.id, start: s.start, end: s.end, title: s.title, location: s.location, tracks: s.tracks,
+    picked: pickedIds.has(s.id), conflict: conflicts.has(s.id), onOpen: () => onOpenDetail(s),
+  })
+
+  const tlColumns = axis === 'tl'
+    ? (facet.key
+      ? facetGroups().map((g) => ({ key: g.key, label: g.key, color: g.color, items: g.sessions.map(mkItem) }))
+      : [{ key: 'all', label: 'All sessions', color: 'var(--accent)', items: visible.map(mkItem) }])
+    : []
 
   const cycleTrack = (track) => {
     if (include.has(track)) { setInclude(without(include, track)); setExclude(with_(exclude, track)) }
     else if (exclude.has(track)) setExclude(without(exclude, track))
     else setInclude(with_(include, track))
   }
-
   const activeFilters = include.size + exclude.size + tagInclude.size + (onlyPicked ? 1 : 0)
-  const clearAll = () => {
-    setInclude(new Set()); setExclude(new Set()); setTagInclude(new Set()); setOnlyPicked(false)
+  const clearAll = () => { setInclude(new Set()); setExclude(new Set()); setTagInclude(new Set()); setOnlyPicked(false) }
+
+  const renderCard = (session, mini) => {
+    const pick = pickState.get(session.id)
+    return (
+      <SessionCard
+        session={session} config={config} mini={mini}
+        picked={pickedIds.has(session.id)} overlapWith={overlapTitle(session.id)}
+        onToggle={onTogglePick} onOpen={onOpenDetail}
+        note={pick?.notes} onNote={(id, v) => onUpdatePick(id, { notes: v })}
+        rating={pick?.rating} onRate={(id, v) => onUpdatePick(id, { rating: v })}
+      />
+    )
   }
 
   return (
@@ -100,16 +133,24 @@ export default function PickerView({
       </div>
 
       <div className="filter-bar">
-        <input
-          type="search"
-          placeholder="Search titles, people, rooms…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search sessions"
-        />
+        <input type="search" placeholder="Search titles, people, rooms…" value={query}
+          onChange={(e) => setQuery(e.target.value)} aria-label="Search sessions" />
         <button className={activeFilters ? 'is-active' : ''} onClick={() => setFiltersOpen(true)}>
           Filters{activeFilters > 0 && ` · ${activeFilters}`}
         </button>
+      </div>
+
+      <div className="view-model-bar">
+        <div className="segmented" role="tablist" aria-label="Layout">
+          <button role="tab" aria-selected={axis === 'list'} onClick={() => setAxis('list')}>☰ List</button>
+          <button role="tab" aria-selected={axis === 'tl'} onClick={() => setAxis('tl')}>▤ Timeline</button>
+        </div>
+        <select className="group-select" value={group} onChange={(e) => setGroup(e.target.value)} aria-label="Group by">
+          {FACETS.map((f) => <option key={f.value} value={f.value}>{f.label}</option>)}
+        </select>
+        {axis === 'tl' && (
+          <button className="pill-toggle" aria-pressed={compact} onClick={() => setCompact((v) => !v)}>Compact</button>
+        )}
       </div>
 
       <p className="result-count">{visible.length} of {daySessions.length} sessions</p>
@@ -122,26 +163,26 @@ export default function PickerView({
               onClick={() => { setQuery(''); clearAll() }}>Clear all</button>
           )}
         </div>
+      ) : axis === 'tl' ? (
+        <ColumnTimeline columns={tlColumns} config={config} compact={compact} />
+      ) : facet.key ? (
+        <div className="facet-cols">
+          {facetGroups().map((g) => (
+            <section key={g.key} className="facet-col">
+              <div className="facet-col-head">
+                <span className="facet-dot" style={{ '--dot': g.color }} />
+                <span className="label">{g.key}</span>
+                <span className="count">{g.sessions.length}</span>
+              </div>
+              <div className="facet-col-body">
+                {g.sessions.map((s) => <div key={s.id}>{renderCard(s, true)}</div>)}
+              </div>
+            </section>
+          ))}
+        </div>
       ) : (
         <ul className="session-list">
-          {visible.map((session) => {
-            const pick = pickState.get(session.id)
-            return (
-              <li key={session.id}>
-                <SessionCard
-                  session={session}
-                  config={config}
-                  picked={pickedIds.has(session.id)}
-                  overlapWith={overlapTitle(session.id)}
-                  onToggle={onTogglePick}
-                  note={pick?.notes}
-                  onNote={(id, value) => onUpdatePick(id, { notes: value })}
-                  rating={pick?.rating}
-                  onRate={(id, value) => onUpdatePick(id, { rating: value })}
-                />
-              </li>
-            )
-          })}
+          {visible.map((s) => <li key={s.id}>{renderCard(s, false)}</li>)}
         </ul>
       )}
 
@@ -154,12 +195,9 @@ export default function PickerView({
               <h2>Filters</h2>
               {activeFilters > 0 && <button className="link-button" onClick={clearAll}>Clear all</button>}
             </div>
-
-            <button className="only-toggle" aria-pressed={onlyPicked}
-              onClick={() => setOnlyPicked((v) => !v)}>
+            <button className="only-toggle" aria-pressed={onlyPicked} onClick={() => setOnlyPicked((v) => !v)}>
               <span className="only-box">{onlyPicked ? '✓' : ''}</span> Only my picks
             </button>
-
             <p className="filter-hint">Tap a track to include, again to exclude, once more to clear.</p>
             <div className="filter-chips">
               {tracks.map(([track, count]) => (
@@ -171,14 +209,12 @@ export default function PickerView({
                 </button>
               ))}
             </div>
-
             {tags.length > 0 && (
               <>
                 <p className="filter-hint">Topics — seeded from titles, so coverage is partial.</p>
                 <div className="filter-chips">
                   {tags.map(([tag, count]) => (
-                    <button key={tag}
-                      className={`filter-chip ${tagInclude.has(tag) ? 'is-include' : ''}`}
+                    <button key={tag} className={`filter-chip ${tagInclude.has(tag) ? 'is-include' : ''}`}
                       onClick={() => setTagInclude(tagInclude.has(tag) ? without(tagInclude, tag) : with_(tagInclude, tag))}>
                       {tag} <span className="count">{count}</span>
                     </button>
@@ -193,14 +229,10 @@ export default function PickerView({
   )
 }
 
-/** Count distinct values produced by `pick` across sessions, commonest first. */
 function tally(sessions, pick) {
   const counts = new Map()
-  for (const s of sessions) {
-    for (const value of pick(s)) counts.set(value, (counts.get(value) ?? 0) + 1)
-  }
+  for (const s of sessions) for (const value of pick(s)) counts.set(value, (counts.get(value) ?? 0) + 1)
   return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
 }
-
 const with_ = (set, value) => new Set(set).add(value)
 const without = (set, value) => { const n = new Set(set); n.delete(value); return n }

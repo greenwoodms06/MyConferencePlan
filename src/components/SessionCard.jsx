@@ -47,12 +47,10 @@ export default function SessionCard({
         </button>
       </div>
 
-      {/* onOpen (detail sheet, Phase 4) takes precedence; until then the title
-         falls back to a direct link so the session URL stays reachable. */}
-      <h3 className="session-title">
-        {onOpen ? (
-          <span onClick={() => onOpen(session)}>{session.title}</span>
-        ) : session.url ? (
+      {/* When onOpen is provided the whole title row opens the detail sheet;
+         otherwise the title falls back to a direct link to the session page. */}
+      <h3 className="session-title" onClick={onOpen ? () => onOpen(session) : undefined}>
+        {onOpen ? session.title : session.url ? (
           <a href={session.url} target="_blank" rel="noreferrer noopener" onClick={stop}>
             {session.title}
           </a>
