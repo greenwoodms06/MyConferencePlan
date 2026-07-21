@@ -1,6 +1,7 @@
 import { formatRange } from '../lib/time.js'
 import { trackColor } from '../lib/palette.js'
 import Stars from './Stars.jsx'
+import NoteField from './NoteField.jsx'
 
 /** Stop a link/control click from also opening the detail sheet. */
 const stop = (e) => e.stopPropagation()
@@ -97,13 +98,7 @@ export default function SessionCard({
 
       {!mini && picked && (
         <div className="session-picked-row">
-          <input
-            className="session-note"
-            placeholder="Notes for yourself…"
-            value={note ?? ''}
-            onChange={(e) => onNote(session.id, e.target.value)}
-            onClick={stop}
-          />
+          <NoteField value={note} onChange={(v) => onNote(session.id, v)} />
           <Stars rating={rating} onRate={(r) => onRate(session.id, r)} />
         </div>
       )}

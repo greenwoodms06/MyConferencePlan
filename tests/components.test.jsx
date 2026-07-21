@@ -327,12 +327,16 @@ describe('conference registry + switcher', () => {
       { id: 'gdc-2026', name: 'GDC 2026', accent: '#0d9488', dateRange: 'Mar 16–20', location: 'San Francisco', dataVersion: '2026-03-01', source: 'bundled' },
     ]
     const html = renderToStaticMarkup(
-      <ConferenceSwitcher conferences={confs} activeId="siggraph-2026"
+      <ConferenceSwitcher conferences={confs} activeId="siggraph-2026" activeConfig={config}
         onSwitch={noop} onAdded={noop} onClose={noop} onToast={noop} />,
     )
     expect(html).toContain('Your conferences')
     expect(html).toContain('SIGGRAPH 2026')
     expect(html).toContain('GDC 2026')
+    // The active conference's own links (config.url + config.links) render as
+    // chips; absent config would render none (SPEC §1.3).
+    expect(html).toContain('Website')
+    for (const link of config.links) expect(html).toContain(link.label)
     expect(html).toContain('Los Angeles')
     expect(html).toContain('is-active')              // active row highlighted
     expect(html).toContain('Add a conference')       // add affordance present

@@ -599,3 +599,33 @@ input::placeholder { color: var(--ink-4); }
    filter/search/axis state; [hidden] needs reinforcing against any display
    rule on descendants' containers. */
 .view-pane[hidden] { display: none; }
+
+/* ---- conference links (switcher, active conference only) ------------------ */
+.conf-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 2px 4px 10px 58px; /* aligns under the row text, past the monogram */
+}
+.conf-links a {
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--accent);
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 4px 11px;
+}
+
+/* ---- session note editor -------------------------------------------------- */
+/* One quiet line at rest; a real editing space while focused. Auto-height is
+   set from scrollHeight in NoteField.jsx — overflow stays hidden so the
+   measurement is stable. */
+textarea.session-note {
+  overflow: hidden;
+  line-height: 1.5;
+  display: block;
+}
+textarea.session-note.is-editing { min-height: 76px; }
+.session-picked-row:has(.session-note.is-editing) { align-items: flex-start; }

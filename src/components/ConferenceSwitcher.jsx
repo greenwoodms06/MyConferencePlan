@@ -9,7 +9,7 @@ import { loadJournal } from '../lib/storage.js'
  * adds a new one by URL or bundle file.
  */
 export default function ConferenceSwitcher({
-  conferences, activeId, onSwitch, onAdded, onClose, onToast,
+  conferences, activeId, activeConfig, onSwitch, onAdded, onClose, onToast,
 }) {
   const [adding, setAdding] = useState(false)
   const [url, setUrl] = useState('')
@@ -40,7 +40,10 @@ export default function ConferenceSwitcher({
 
         <div className="conf-list">
           {conferences.map((c) => (
-            <ConferenceRow key={c.id} conference={c} active={c.id === activeId} onSwitch={onSwitch} />
+            <div key={c.id}>
+              <ConferenceRow conference={c} active={c.id === activeId} onSwitch={onSwitch} />
+              {c.id === activeId && <ConferenceLinks config={activeConfig} />}
+            </div>
           ))}
         </div>
 
@@ -70,6 +73,26 @@ export default function ConferenceSwitcher({
         )}
       </div>
     </>
+  )
+}
+
+/** The event's own links (config.url + config.links, SPEC §3) — shown only
+ *  for the active conference, whose full config is loaded. Absent → nothing
+ *  renders (SPEC §1.3). */
+function ConferenceLinks({ config }) {
+  const links = [
+    config?.url && { label: 'Website', url: config.url },
+    ...(config?.links ?? []),
+  ].filter((l) => l?.label && l?.url)
+  if (!links.length) return null
+  return (
+    <div className="conf-links">
+      {links.map((link) => (
+        <a key={link.url} href={link.url} target="_blank" rel="noreferrer noopener">
+          {link.label} ↗
+        </a>
+      ))}
+    </div>
   )
 }
 

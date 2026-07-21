@@ -71,13 +71,17 @@ test('checker: the shipped dataset is clean under the offline format checker', (
   assert.deepEqual(checkBundle(config, sessions), [])
 })
 
-test('checker: catches duplicate ids, bad times, unknown days and tiers', () => {
-  const cfg = { days: [{ key: 'd1' }], accessLevels: [{ id: 'FC' }] }
+test('checker: catches duplicate ids, bad times, unknown days, tiers and links', () => {
+  const cfg = {
+    days: [{ key: 'd1' }], accessLevels: [{ id: 'FC' }],
+    url: 'not-a-url', links: [{ label: 'Map' }],
+  }
   const issues = checkBundle(cfg, [
     { id: 'a', day: 'd1', start: '09:00', end: '10:00', title: 'ok', tracks: ['T'] },
     { id: 'a', day: 'd2', start: '9:00', end: '08:00', title: 'bad', tracks: [], access: ['VIP'] },
   ])
-  for (const fragment of ['duplicate id', 'not in config.days', 'not 24h', 'tracks is empty', 'tier "VIP"']) {
+  for (const fragment of ['duplicate id', 'not in config.days', 'not 24h', 'tracks is empty', 'tier "VIP"',
+    'url is not absolute', 'links[] entry']) {
     assert.ok(issues.some((i) => i.includes(fragment)), `expected an issue mentioning ${fragment}`)
   }
 })

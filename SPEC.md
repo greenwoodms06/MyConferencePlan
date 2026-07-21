@@ -136,6 +136,15 @@ identity work.
   "location": "Los Angeles Convention Center",
   "timezone": "America/Los_Angeles",
 
+  // Optional. The event's own front door, plus any labeled links it wants
+  // surfaced (venue map, program, code of conduct…). Deliberately generic —
+  // the app renders them as plain link chips and nothing more. Absent → no
+  // links UI at all (sect. 1.3).
+  "url": "https://s2026.siggraph.org",
+  "links": [
+    { "label": "Venue map", "url": "https://…" }
+  ],
+
   "days": [
     { "key": "2026-07-19", "label": "Sunday",    "date": "19 Jul" },
     { "key": "2026-07-20", "label": "Monday",    "date": "20 Jul" },

@@ -8,6 +8,17 @@
   "dateRange": "Jul 19–23",
   "shortLocation": "Los Angeles",
   "location": "Los Angeles Convention Center, 1201 S Figueroa St, Los Angeles, CA 90015",
+  "url": "https://s2026.siggraph.org",
+  "links": [
+    {
+      "label": "Full program",
+      "url": "https://s2026.conference-schedule.org/"
+    },
+    {
+      "label": "Venue map",
+      "url": "https://maps.google.com/?q=Los+Angeles+Convention+Center"
+    }
+  ],
   "timezone": "America/Los_Angeles",
   "days": [
     {

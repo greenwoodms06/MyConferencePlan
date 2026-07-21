@@ -2,6 +2,7 @@ import { formatRange } from '../lib/time.js'
 import { trackColor } from '../lib/palette.js'
 import { canAttend } from '../lib/journal.js'
 import Stars from './Stars.jsx'
+import NoteField from './NoteField.jsx'
 
 const stop = (e) => e.stopPropagation()
 
@@ -60,8 +61,7 @@ export default function DetailSheet({
 
         {picked && (
           <div className="session-picked-row" style={{ marginTop: 14 }}>
-            <input className="session-note" placeholder="Notes for yourself…"
-              value={note ?? ''} onChange={(e) => onNote(session.id, e.target.value)} onClick={stop} />
+            <NoteField value={note} onChange={(v) => onNote(session.id, v)} />
             <Stars rating={rating} onRate={(r) => onRate(session.id, r)} />
           </div>
         )}

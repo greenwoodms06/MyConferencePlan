@@ -413,6 +413,7 @@ export default function App() {
         <ConferenceSwitcher
           conferences={conferences}
           activeId={activeId}
+          activeConfig={config}
           onSwitch={switchTo}
           onAdded={onConferenceAdded}
           onClose={() => setShowSwitcher(false)}

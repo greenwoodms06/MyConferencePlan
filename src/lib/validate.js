@@ -35,6 +35,14 @@ export function checkBundle(config, sessions) {
   const issues = []
   const say = (s, msg) => issues.push(`${s.id ?? '?'}: ${msg}`)
 
+  if (config.url && !/^https?:\/\//.test(config.url)) {
+    issues.push(`config: url is not absolute: ${config.url}`)
+  }
+  for (const link of config.links ?? []) {
+    if (!link?.label || !link?.url) issues.push('config: every links[] entry needs { label, url }')
+    else if (!/^https?:\/\//.test(link.url)) issues.push(`config: link "${link.label}" url is not absolute: ${link.url}`)
+  }
+
   const dayKeys = new Set((config.days ?? []).map((d) => d.key))
   const tiers = new Set((config.accessLevels ?? []).map((l) => l.id))
 
