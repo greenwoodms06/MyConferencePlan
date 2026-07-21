@@ -11,11 +11,15 @@
   "url": "https://s2026.siggraph.org",
   "links": [
     {
-      "label": "Full program",
+      "label": "Program",
       "url": "https://s2026.conference-schedule.org/"
     },
     {
-      "label": "Venue map",
+      "label": "Venue Map",
+      "url": "https://s2026.conference-schedule.org/map/"
+    },
+    {
+      "label": "📍 Directions",
       "url": "https://maps.google.com/?q=Los+Angeles+Convention+Center"
     }
   ],
