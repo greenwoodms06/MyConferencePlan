@@ -508,6 +508,14 @@ It will be re-run — schedules change, and the ledger only works if regeneratio
 routine. It must be committed, deterministic, and emit `config.json`, `sessions.json`,
 and `ids.json` together.
 
+> **Historical note (2026-07-21):** the SIGGRAPH 2026 adapter
+> (`scripts/import_siggraph2026.py`) was deleted once its output froze —
+> SIGGRAPH will not republish, so the one-shot had done its job. It remains in
+> git history (`git log --diff-filter=D -- scripts/import_siggraph2026.py`).
+> The durable tooling it left behind: `scripts/check_bundle.mjs` (offline
+> format checker sharing the app's validation rules) and
+> `scripts/rebuild_index.mjs` (manifest regeneration).
+
 ---
 
 ## 11. Open questions
@@ -535,11 +543,12 @@ collaborative view ships.
 
 ## 12. Build order
 
-1. ~~**Importer + cleaned SIGGRAPH data**~~ — **done.** `scripts/import_siggraph2026.py`
-   (one-shot, zero-dependency) emits `public/data/{config,sessions}.json` plus
-   `import-report.txt`. 487 sessions, 0 issues, every source track value accounted
-   for. JSON only — CSV cannot represent `contributors: [{name, url}]` without a
+1. ~~**Importer + cleaned SIGGRAPH data**~~ — **done.** A one-shot, zero-dependency
+   Python adapter emitted `public/data/siggraph-2026/{config,sessions}.json`:
+   487 sessions, 0 issues, every source track value accounted for. JSON only —
+   CSV cannot represent `contributors: [{name, url}]` without a
    positionally-aligned parallel-column hack that corrupts silently on edit.
+   (Adapter since deleted — see §10.1.)
 2. ~~**Journal layer**~~ — **done.** `src/lib/journal.js` + `storage.js`: IndexedDB,
    `navigator.storage.persist()`, snapshot/diff with acknowledgement, auto-backup
    to Downloads.

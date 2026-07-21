@@ -11,6 +11,7 @@
 import {
   listUserConferences, loadUserConference, saveUserConference, removeUserConference,
 } from './storage.js'
+import { validateBundle } from './validate.js'
 
 const base = import.meta.env.BASE_URL
 const ACTIVE_KEY = 'ss:activeConference'
@@ -64,25 +65,6 @@ export async function loadConference(entry) {
   return { config, sessions }
 }
 
-/**
- * Validate an arbitrary object as a conference bundle. A bundle is
- * { config, sessions } (optionally wrapped with kind). We validate rather than
- * trust — a user is loading someone else's file.
- * -> { ok, config, sessions } or { ok: false, error }
- */
-export function validateBundle(raw) {
-  const config = raw?.config ?? raw?.conference
-  const sessions = raw?.sessions
-  if (!config || typeof config !== 'object') return { ok: false, error: 'No "config" object in the file.' }
-  if (!config.conferenceId) return { ok: false, error: 'config.conferenceId is missing.' }
-  if (!config.name) return { ok: false, error: 'config.name is missing.' }
-  if (!Array.isArray(config.days) || config.days.length === 0) return { ok: false, error: 'config.days must be a non-empty array.' }
-  if (!Array.isArray(sessions)) return { ok: false, error: 'No "sessions" array in the file.' }
-  const bad = sessions.findIndex((s) => !s?.id || !s?.day || !s?.start || !s?.end || !s?.title || !Array.isArray(s?.tracks))
-  if (bad !== -1) return { ok: false, error: `Session #${bad + 1} is missing required fields (id, day, start, end, title, tracks).` }
-  return { ok: true, config, sessions }
-}
-
 function toRecord(config, sessions) {
   return {
     id: config.conferenceId,
@@ -128,3 +110,4 @@ export async function addConferenceFromUrl(url) {
 }
 
 export { removeUserConference }
+export { validateBundle }

@@ -41,23 +41,24 @@ fails on one of these, the change is wrong, not the test.
 
 ```bash
 npm run dev            # dev server
-npm test               # 34 logic + 23 component tests
+npm test               # 36 logic + 23 component tests
 npm run test:e2e       # 21 real-browser checks (needs: npx playwright install chromium)
 npm run shots          # screenshots -> e2e/shots/ (gitignored)
 npm run build          # -> dist/
-npm run import:siggraph  # regenerate public/data from the xlsx
+npm run check:data     # offline format checker over public/data (same rules as the app)
+npm run rebuild:index  # regenerate the conference manifest from the data folders
 ```
 
-The lib tests assert invariants on the **real 487-session dataset**, so a bad data
-regenerate fails the build rather than shipping quietly. That's deliberate — if you
-change the importer and tests fail on counts, check the data before "fixing" the test.
+The lib tests assert invariants on the **real 487-session dataset**, so bad data
+fails the build rather than shipping quietly. That's deliberate — if tests fail
+on counts, check the data before "fixing" the test.
 
 ## Layout
 
 ```
 public/data/     index.json (manifest) + <conferenceId>/{config,sessions}.json (generated)
                  multi-event: app reads the manifest, one folder per conference
-scripts/         import_siggraph2026.py (xlsx adapter, writes a folder + rebuilds index), seed_tags.py
+scripts/         check_bundle.mjs (offline format checker), rebuild_index.mjs (manifest)
 src/lib/         pure logic, fully unit-tested: time, overlap, ics, share, journal, storage, palette
 src/components/  PickerView (browse), ColumnsView (collaborative), dialogs
 src/styles.css   ALL styling lives here — no CSS-in-JS, no per-component files
@@ -72,9 +73,11 @@ e2e/             Playwright, self-contained (starts its own server)
   editing that one file. Keep it that way.
 - Comments explain *why*, not *what*, and cite `SPEC.md` sections for decisions
   that were argued rather than obvious.
-- The importer is a **one-shot** adapter — SIGGRAPH won't republish. The id ledger
-  described in `SPEC.md` §2.3 is for conferences that do; it's deliberately not
-  implemented here.
+- The SIGGRAPH data was produced by a **one-shot** adapter, deleted after the
+  data froze (git history has it; see `SPEC.md` §10.1). The id ledger in
+  `SPEC.md` §2.3 is for conferences that republish; deliberately unimplemented.
+- Bundle validation has ONE home: `src/lib/validate.js`, shared by the app
+  (runtime) and `scripts/check_bundle.mjs` (offline). Don't fork the rules.
 
 ## Known gaps (also `SPEC.md` §11)
 
@@ -88,5 +91,5 @@ e2e/             Playwright, self-contained (starts its own server)
 
 - `pkill -f "vite preview"` matches its own shell in WSL and kills the command.
   Use a specific port and `fuser -k` or match on the port instead.
-- `pip` has no network in this environment; `npm` does. The importer is stdlib-only
-  Python for that reason (and because a zero-dep importer is easier to fork).
+- `pip` has no network in this environment; `npm` does. Keep repo tooling in
+  Node (or stdlib-only Python) so it runs here.

@@ -13,6 +13,7 @@ import {
   newJournal, addPick, removePick, updatePick, detectChanges,
   acknowledgeChange, acknowledgeAll, canAttend, makeSnapshot,
 } from '../src/lib/journal.js'
+import { checkBundle } from '../src/lib/validate.js'
 
 const sessions = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/sessions.json', import.meta.url)))
 const config = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/config.json', import.meta.url)))
@@ -63,6 +64,21 @@ test('dataset: urls extracted to their own fields and remain absolute', () => {
   // Session links and contributor links are different kinds and must not be conflated.
   assert.ok(withUrl.some((s) => s.url.includes('sess=')))
   assert.ok(contributorUrls.every((c) => c.url.includes('uid=')))
+})
+
+test('checker: the shipped dataset is clean under the offline format checker', () => {
+  assert.deepEqual(checkBundle(config, sessions), [])
+})
+
+test('checker: catches duplicate ids, bad times, unknown days and tiers', () => {
+  const cfg = { days: [{ key: 'd1' }], accessLevels: [{ id: 'FC' }] }
+  const issues = checkBundle(cfg, [
+    { id: 'a', day: 'd1', start: '09:00', end: '10:00', title: 'ok', tracks: ['T'] },
+    { id: 'a', day: 'd2', start: '9:00', end: '08:00', title: 'bad', tracks: [], access: ['VIP'] },
+  ])
+  for (const fragment of ['duplicate id', 'not in config.days', 'not 24h', 'tracks is empty', 'tier "VIP"']) {
+    assert.ok(issues.some((i) => i.includes(fragment)), `expected an issue mentioning ${fragment}`)
+  }
 })
 
 test('dataset: cross-listed sessions kept every track', () => {
