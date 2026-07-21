@@ -4,6 +4,10 @@
  *  the app enforce the same rules.
  */
 
+/** Required on every session — shared with the AI conversion prompt
+ *  (src/lib/aiPrompt.js) so the two can't drift. */
+export const REQUIRED_SESSION_FIELDS = ['id', 'day', 'start', 'end', 'title', 'tracks']
+
 /**
  * Shape gate: is this object a { config, sessions } bundle at all?
  * -> { ok, config, sessions } or { ok: false, error }
@@ -17,7 +21,7 @@ export function validateBundle(raw) {
   if (!Array.isArray(config.days) || config.days.length === 0) return { ok: false, error: 'config.days must be a non-empty array.' }
   if (!Array.isArray(sessions)) return { ok: false, error: 'No "sessions" array in the file.' }
   const bad = sessions.findIndex((s) => !s?.id || !s?.day || !s?.start || !s?.end || !s?.title || !Array.isArray(s?.tracks))
-  if (bad !== -1) return { ok: false, error: `Session #${bad + 1} is missing required fields (id, day, start, end, title, tracks).` }
+  if (bad !== -1) return { ok: false, error: `Session #${bad + 1} is missing required fields (${REQUIRED_SESSION_FIELDS.join(', ')}).` }
   return { ok: true, config, sessions }
 }
 

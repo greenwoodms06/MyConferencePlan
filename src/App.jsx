@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+// Inlined (?raw, no network fetch): an <img> to the public URL can paint late
+// on a cold start, showing icon -> blank -> app (seen on device in PageToPlate).
+import appIconSvg from '../public/icons/icon-512.svg?raw'
 
 import { buildResolver, buildShareFile, resolveShareFile } from './lib/share.js'
 import { buildIcs } from './lib/ics.js'
@@ -25,6 +28,25 @@ import DetailSheet from './components/DetailSheet.jsx'
 
 const base = import.meta.env.BASE_URL
 
+// Launch splash — mirrors the Android PWA launch screen (manifest background,
+// icon dead-center, name hanging below) so the OS->app handoff reads as ONE
+// splash that holds, then fades while the app mounts underneath. Durations
+// owner-tuned in PageToPlate; keep the geometry — moving the icon off-center
+// or putting the name above it re-creates the visible double-splash jump.
+const SPLASH_MIN_MS = 2000
+const SPLASH_FADE_MS = 1000
+
+function Splash({ leaving }) {
+  return (
+    <div className={`splash${leaving ? ' is-leaving' : ''}`} aria-hidden="true">
+      <div className="splash-center">
+        <div className="splash-icon" dangerouslySetInnerHTML={{ __html: appIconSvg }} />
+        <div className="splash-name">SessionSamba</div>
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
@@ -43,6 +65,22 @@ export default function App() {
   const [activeId, setActiveIdState] = useState(null)
   const [showSwitcher, setShowSwitcher] = useState(false)
   const [showReview, setShowReview] = useState(false)
+  const [splashMinShown, setSplashMinShown] = useState(false)
+  const [splashGone, setSplashGone] = useState(false)
+
+  // Splash lifecycle: hold for the minimum regardless of load speed, then
+  // fade once BOTH the hold and the data are done; unmount after the fade.
+  useEffect(() => {
+    const timer = setTimeout(() => setSplashMinShown(true), SPLASH_MIN_MS)
+    return () => clearTimeout(timer)
+  }, [])
+  const splashLeaving = splashMinShown && (Boolean(data && journal) || Boolean(error))
+  useEffect(() => {
+    if (!splashLeaving) return
+    const timer = setTimeout(() => setSplashGone(true), SPLASH_FADE_MS)
+    return () => clearTimeout(timer)
+  }, [splashLeaving])
+  const splash = !splashGone && <Splash leaving={splashLeaving} />
 
   useEffect(() => {
     if (!toast) return
@@ -224,12 +262,13 @@ export default function App() {
         <h1>Couldn’t load the schedule</h1>
         <p>The conference data didn’t load. If you’re offline and haven’t opened this
           app before, connect once so it can cache the schedule.</p>
+        {splash}
       </div>
     )
   }
 
   if (!data || !journal) {
-    return <div className="app-message"><p>Loading schedule…</p></div>
+    return <div className="app-message"><p>Loading schedule…</p>{splash}</div>
   }
 
   const { config, sessions } = data
@@ -417,6 +456,8 @@ export default function App() {
           {toast}
         </div>
       )}
+
+      {splash}
     </div>
   )
 }

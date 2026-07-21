@@ -74,6 +74,13 @@ try {
   await page.goto(APP, { waitUntil: 'networkidle' })
   await page.waitForSelector('.session')
 
+  await check('launch splash shows the icon, then fades away', async () => {
+    assert(await page.locator('.splash').count() === 1, 'no launch splash on load')
+    assert(await page.locator('.splash-icon svg').count() === 1, 'splash icon not inlined')
+    // Hold (2s) + fade (1s), then it must unmount so nothing blocks taps.
+    await page.waitForSelector('.splash', { state: 'detached', timeout: 8000 })
+  })
+
   await check('loads the schedule with no console errors', () => {
     assert(consoleErrors.length === 0, `console errors: ${consoleErrors.join(' | ')}`)
   })

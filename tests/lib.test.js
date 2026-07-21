@@ -13,7 +13,8 @@ import {
   newJournal, addPick, removePick, updatePick, detectChanges,
   acknowledgeChange, acknowledgeAll, canAttend, makeSnapshot,
 } from '../src/lib/journal.js'
-import { checkBundle } from '../src/lib/validate.js'
+import { checkBundle, REQUIRED_SESSION_FIELDS } from '../src/lib/validate.js'
+import { AI_CONVERT_PROMPT } from '../src/lib/aiPrompt.js'
 
 const sessions = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/sessions.json', import.meta.url)))
 const config = JSON.parse(readFileSync(new URL('../public/data/siggraph-2026/config.json', import.meta.url)))
@@ -78,6 +79,18 @@ test('checker: catches duplicate ids, bad times, unknown days and tiers', () => 
   ])
   for (const fragment of ['duplicate id', 'not in config.days', 'not 24h', 'tracks is empty', 'tier "VIP"']) {
     assert.ok(issues.some((i) => i.includes(fragment)), `expected an issue mentioning ${fragment}`)
+  }
+})
+
+test('ai prompt: stays coupled to the format it promises', () => {
+  // The Settings "Copy AI prompt" must describe the same format the checker
+  // enforces — if the required fields ever change, this pins the prompt to follow.
+  for (const field of REQUIRED_SESSION_FIELDS) {
+    assert.ok(AI_CONVERT_PROMPT.includes(field), `prompt must mention "${field}"`)
+  }
+  assert.match(AI_CONVERT_PROMPT, /NEVER from time or room/, 'must carry the stable-id rule')
+  for (const key of ['schemaVersion', 'conferenceId', 'timezone', 'accessLevels', 'JSON only']) {
+    assert.ok(AI_CONVERT_PROMPT.includes(key), `prompt must mention "${key}"`)
   }
 })
 

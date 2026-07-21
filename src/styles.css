@@ -531,3 +531,66 @@ input::placeholder { color: var(--ink-4); }
   .app { max-width: 1100px; }
   .session-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* ---- launch splash --------------------------------------------------------
+   Mirrors the Android PWA launch screen: manifest background_color, icon
+   dead-center, name hanging below — so the OS->app handoff reads as one
+   splash that holds, then fades (pattern + durations from PageToPlate).
+   Deliberately constant light background: Android draws the manifest color
+   first even for dark-theme users, and matching it is what makes the
+   transition seamless. */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 40; /* above every sheet, dialog and toast */
+  display: grid;
+  place-items: center;
+  background: #e9ebef; /* keep equal to manifest background_color */
+  opacity: 1;
+  transition: opacity 1000ms ease; /* keep equal to SPLASH_FADE_MS */
+}
+.splash.is-leaving {
+  opacity: 0;
+  pointer-events: none; /* while fading, taps reach the app underneath */
+}
+.splash-center { position: relative; }
+.splash-icon svg {
+  width: 112px;  /* ~Android launch-screen icon scale */
+  height: 112px;
+  border-radius: 26px;
+  display: block;
+}
+.splash-name {
+  position: absolute; /* hangs below so the icon stays dead-center */
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 18px;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  color: #3f4756;
+  white-space: nowrap;
+}
+
+/* ---- settings: about / add-a-conference ---------------------------------- */
+.settings-about-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin: 6px 0 10px;
+}
+.settings-about-text code {
+  font-size: 12px;
+  background: var(--surface);
+  padding: 1px 5px;
+  border-radius: 6px;
+}
+.settings-copy-prompt { width: 100%; }
+.settings-version {
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--ink-3);
+  text-align: center;
+}
+.settings-version a { color: var(--accent); }

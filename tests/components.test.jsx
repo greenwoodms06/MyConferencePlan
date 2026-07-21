@@ -269,6 +269,10 @@ describe('dialogs and banners', () => {
     // A backup you cannot restore is not a durability story (SPEC §5.3).
     expect(html).toContain('Restore a backup')
     for (const level of config.accessLevels) expect(html).toContain(level.label)
+    // About/info block: name + version + repo + the AI conversion helper.
+    expect(html).toContain('Copy AI conversion prompt')
+    expect(html).toContain('github.com/greenwoodms06/SessionSamba')
+    expect(html).toMatch(/SessionSamba v\d+\.\d+\.\d+/)
   })
 })
 
