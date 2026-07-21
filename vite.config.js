@@ -12,17 +12,23 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate', // SPEC sect. 8.1: force-update, never sit in `waiting`
-      includeAssets: ['icons/*.svg'],
+      includeAssets: ['favicon.svg', 'icons/*.svg', 'icons/*.png'],
       manifest: {
         name: 'OpenLineup',
         short_name: 'OpenLineup',
         description: 'Plan your conference schedule offline.',
-        theme_color: '#111827',
-        background_color: '#ffffff',
+        // The light --page token; index.html carries a per-scheme pair.
+        theme_color: '#e9ebef',
+        background_color: '#e9ebef',
         display: 'standalone',
         start_url: base,
         scope: base,
+        // PNG first — some installers ignore SVG icons. The art is full-bleed
+        // with content in the safe zone, so one file serves any + maskable.
         icons: [
+          { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
           { src: 'icons/icon-192.svg', sizes: '192x192', type: 'image/svg+xml', purpose: 'any' },
           { src: 'icons/icon-512.svg', sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' },
         ],
