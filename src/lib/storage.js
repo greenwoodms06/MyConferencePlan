@@ -170,6 +170,29 @@ export function backupFilename(now = new Date()) {
   return `sessionsamba-backup-${now.toISOString().slice(0, 10)}.ss.txt`
 }
 
+/**
+ * Deliver a file OFF the device. On phones the share sheet (Drive / Files /
+ * messaging) is the real destination — navigator.share is what opens it, and
+ * it only works from a user gesture. The anchor download is the fallback:
+ * desktop Chromium (no files-share support) or a share() that breaks.
+ * -> 'shared' | 'downloaded' | 'cancelled'. 'cancelled' means the user closed
+ * the sheet — the file went NOWHERE, so callers must not mark a backup done.
+ */
+export async function shareOrDownloadFile(filename, contents, mime = 'text/plain') {
+  const file = new File([contents], filename, { type: mime })
+  if (navigator.canShare?.({ files: [file] })) {
+    try {
+      await navigator.share({ files: [file], title: filename })
+      return 'shared'
+    } catch (err) {
+      if (err?.name === 'AbortError') return 'cancelled'
+      // Any OTHER share failure must still deliver the file.
+    }
+  }
+  downloadFile(filename, contents, mime)
+  return 'downloaded'
+}
+
 export async function exportBackup() {
   const journals = await listJournals()
   return JSON.stringify(

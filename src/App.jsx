@@ -12,7 +12,8 @@ import {
 } from './lib/journal.js'
 import {
   backupFilename, downloadFile, exportBackup, importBackup, loadColumns, loadJournal,
-  markAutoBackup, saveColumns, saveJournal, shouldAutoBackup, storageReport,
+  markAutoBackup, saveColumns, saveJournal, shareOrDownloadFile, shouldAutoBackup,
+  storageReport,
 } from './lib/storage.js'
 
 import { applyTheme, getTheme } from './lib/theme.js'
@@ -184,6 +185,8 @@ export default function App() {
     if (!journal || journal.picks.length === 0) return
     if (!shouldAutoBackup()) return
     exportBackup().then((contents) => {
+      // Plain download here, NOT the share sheet: this effect runs without a
+      // user gesture, which navigator.share requires.
       downloadFile(backupFilename(), contents, 'text/plain')
       markAutoBackup()
       setToast('Backup saved to your Downloads folder.')
@@ -366,8 +369,12 @@ export default function App() {
           onSetName={(name) => commit({ ...journal, sender: { ...journal.sender, name } })}
           onIcs={exportIcs}
           onBackup={async () => {
-            downloadFile(backupFilename(), await exportBackup(), 'text/plain')
+            const outcome = await shareOrDownloadFile(backupFilename(), await exportBackup())
+            if (outcome === 'cancelled') return
             markAutoBackup()
+            setToast(outcome === 'shared'
+              ? 'Backup shared.'
+              : 'Backup saved to your Downloads folder.')
           }}
           onRestore={async (file) => {
             try {
