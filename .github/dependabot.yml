@@ -1,0 +1,18 @@
+# Version updates for the two ecosystems this repo actually has. Committing
+# this file enables Dependabot version updates by itself; Dependabot ALERTS
+# (vulnerability notices) are a separate toggle under Settings → Code security.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      # One PR per week for routine minor/patch churn, not ten.
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
