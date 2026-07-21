@@ -160,6 +160,16 @@ export function markAutoBackup(now = Date.now()) {
 
 const BACKUP_KIND = 'sessionsamba-backup'
 
+/** The backup is named .ss.txt and typed text/plain even though the content
+ *  is JSON: Chromium's Web Share API only allows an extension allowlist that
+ *  excludes .json, so on Android a .json backup skips the share sheet and
+ *  silently downloads instead (same wall PageToPlate hit). Restore identifies
+ *  the file by CONTENT (importBackup checks `kind`), never by extension, so
+ *  old .json backups keep restoring forever. */
+export function backupFilename(now = new Date()) {
+  return `sessionsamba-backup-${now.toISOString().slice(0, 10)}.ss.txt`
+}
+
 export async function exportBackup() {
   const journals = await listJournals()
   return JSON.stringify(

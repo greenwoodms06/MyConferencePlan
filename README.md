@@ -39,7 +39,7 @@ npm run build        # -> dist/
 
 # Real-browser tests (Chromium via Playwright). First run only:
 npx playwright install chromium
-npm run test:e2e     # 22 end-to-end checks, starts its own server
+npm run test:e2e     # 23 end-to-end checks, starts its own server
 ```
 
 Deploying is just pushing to `main` — the workflow tests, builds with the repo
@@ -105,9 +105,9 @@ no fork needed. To bundle it into this repo, add
 
 ## Testing
 
-82 checks in three layers: pure-logic tests that also pin invariants on the
+83 checks in three layers: pure-logic tests that also pin invariants on the
 real 487-session dataset (a bad data change fails the build), every component
-rendered against real data, and 22 real-Chromium e2e checks covering IndexedDB
+rendered against real data, and 23 real-Chromium e2e checks covering IndexedDB
 persistence, the share round trip, backup restore, and offline via the service
 worker.
 

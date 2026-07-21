@@ -77,7 +77,11 @@ export default function SettingsPanel({
           {onIcs && <button className="btn-outline" onClick={onIcs}>Export .ics</button>}
         </div>
         {onRestore && (
-          <input ref={restoreInput} type="file" accept="application/json,.json" hidden
+          // NO accept filter, deliberately: Android's document picker maps
+          // accept to MIME filters and can block the .ss.txt backup outright
+          // (PageToPlate hit this on device). importBackup validates by
+          // CONTENT before touching anything, so an unfiltered picker is safe.
+          <input ref={restoreInput} type="file" hidden
             onChange={(e) => { const f = e.target.files?.[0]; if (f) onRestore(f); e.target.value = '' }} />
         )}
 

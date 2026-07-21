@@ -86,8 +86,10 @@ try {
   })
 
   await check('renders every day tab from config', async () => {
-    const tabs = await page.locator('.day-tabs button').count()
-    assert(tabs === 5, `expected 5 day tabs, got ${tabs}`)
+    // :visible — the inactive view stays mounted (state preservation), so its
+    // hidden day tabs are in the DOM too.
+    const tabs = await page.locator('.day-tabs button:visible').count()
+    assert(tabs === 5, `expected 5 visible day tabs, got ${tabs}`)
   })
 
   await check('Tuesday shows all 123 sessions', async () => {
@@ -173,6 +175,20 @@ try {
       'not cleared',
     )
     await page.locator('.scrim').click({ position: { x: 5, y: 5 } })
+    await page.waitForTimeout(200)
+  })
+
+  await check('Browse filters survive a round trip to My day', async () => {
+    await page.getByRole('searchbox').fill('gaussian')
+    await page.waitForTimeout(250)
+    const narrowed = await page.locator('.result-count').innerText()
+    await page.getByRole('tab', { name: /My day/ }).click()
+    await page.waitForTimeout(300)
+    await page.getByRole('tab', { name: 'Browse' }).click()
+    await page.waitForTimeout(300)
+    assert(await page.getByRole('searchbox').inputValue() === 'gaussian', 'search text was dropped')
+    assert(await page.locator('.result-count').innerText() === narrowed, 'filtered results were reset')
+    await page.getByRole('searchbox').fill('')
     await page.waitForTimeout(200)
   })
 
@@ -330,6 +346,10 @@ try {
       page.waitForEvent('download'),
       page.getByRole('button', { name: 'Back up now' }).click(),
     ])
+    // .ss.txt costume: the Web Share extension allowlist excludes .json, so a
+    // .json backup can never reach the Android share sheet.
+    assert(/^sessionsamba-backup-\d{4}-\d{2}-\d{2}\.ss\.txt$/.test(download.suggestedFilename()),
+      `backup filename should be *.ss.txt, got ${download.suggestedFilename()}`)
     const backupPath = await download.path()
     await page.locator('.scrim').click({ position: { x: 5, y: 5 } })
     await page.waitForSelector('.sheet', { state: 'detached' })
@@ -415,7 +435,9 @@ try {
     await fresh.getByRole('button', { name: 'Switch conference' }).click()
     await fresh.waitForSelector('.sheet[aria-label="Your conferences"]')
     await fresh.getByText('Add a conference').click()
-    await fresh.locator('input[type=file]').setInputFiles(file)
+    // Scoped to the switcher sheet — ColumnsView's import input is always in
+    // the DOM now that both views stay mounted.
+    await fresh.locator('.sheet input[type=file]').setInputFiles(file)
     // App rebinds: title, days, sessions all change to the new conference.
     await fresh.waitForFunction(() => document.querySelector('.app-header h1')?.textContent === 'Test Conf 2026', { timeout: 8000 })
     await fresh.waitForSelector('.session')

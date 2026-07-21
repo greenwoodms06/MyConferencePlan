@@ -42,7 +42,7 @@ fails on one of these, the change is wrong, not the test.
 ```bash
 npm run dev            # dev server
 npm test               # 37 logic + 23 component tests
-npm run test:e2e       # 22 real-browser checks (needs: npx playwright install chromium)
+npm run test:e2e       # 23 real-browser checks (needs: npx playwright install chromium)
 npm run shots          # screenshots -> e2e/shots/ (gitignored)
 npm run build          # -> dist/
 npm run check:data     # offline format checker over public/data (same rules as the app)

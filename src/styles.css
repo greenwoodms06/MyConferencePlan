@@ -594,3 +594,8 @@ input::placeholder { color: var(--ink-4); }
   text-align: center;
 }
 .settings-version a { color: var(--accent); }
+
+/* Inactive view pane — both views stay mounted so tab switches keep their
+   filter/search/axis state; [hidden] needs reinforcing against any display
+   rule on descendants' containers. */
+.view-pane[hidden] { display: none; }

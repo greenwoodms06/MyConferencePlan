@@ -11,8 +11,8 @@ import {
   setAccessTier, updatePick,
 } from './lib/journal.js'
 import {
-  downloadFile, exportBackup, importBackup, loadColumns, loadJournal, markAutoBackup,
-  saveColumns, saveJournal, shouldAutoBackup, storageReport,
+  backupFilename, downloadFile, exportBackup, importBackup, loadColumns, loadJournal,
+  markAutoBackup, saveColumns, saveJournal, shouldAutoBackup, storageReport,
 } from './lib/storage.js'
 
 import { applyTheme, getTheme } from './lib/theme.js'
@@ -184,7 +184,7 @@ export default function App() {
     if (!journal || journal.picks.length === 0) return
     if (!shouldAutoBackup()) return
     exportBackup().then((contents) => {
-      downloadFile(`sessionsamba-backup-${new Date().toISOString().slice(0, 10)}.json`, contents)
+      downloadFile(backupFilename(), contents, 'text/plain')
       markAutoBackup()
       setToast('Backup saved to your Downloads folder.')
     })
@@ -307,7 +307,11 @@ export default function App() {
         <ChangeBanner count={changes.length} onReview={() => setShowReview(true)} />
       )}
 
-      {view === 'picker' ? (
+      {/* Both views stay mounted; the inactive one hides via [hidden]. This is
+          what preserves search/filters/axis/compact across tab switches — a
+          conditional mount wiped them. A conference switch still resets them:
+          the load gate above unmounts everything while data is null. */}
+      <div className="view-pane" hidden={view !== 'picker'}>
         <PickerView
           config={config}
           sessions={sessions}
@@ -320,7 +324,8 @@ export default function App() {
           onUpdatePick={(id, patch) => commit(updatePick(journal, id, patch))}
           onOpenDetail={(s) => setDetailId(s.id)}
         />
-      ) : (
+      </div>
+      <div className="view-pane" hidden={view === 'picker'}>
         <ColumnsView
           config={config}
           sessionsById={sessionsById}
@@ -334,7 +339,7 @@ export default function App() {
           onExportShare={exportShare}
           onOpen={(s) => setDetailId(s.id)}
         />
-      )}
+      </div>
 
       {pendingImport && (
         <ImportDialog
@@ -361,10 +366,7 @@ export default function App() {
           onSetName={(name) => commit({ ...journal, sender: { ...journal.sender, name } })}
           onIcs={exportIcs}
           onBackup={async () => {
-            downloadFile(
-              `sessionsamba-backup-${new Date().toISOString().slice(0, 10)}.json`,
-              await exportBackup(),
-            )
+            downloadFile(backupFilename(), await exportBackup(), 'text/plain')
             markAutoBackup()
           }}
           onRestore={async (file) => {
