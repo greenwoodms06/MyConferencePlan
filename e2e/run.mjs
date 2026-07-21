@@ -311,6 +311,40 @@ try {
     await fresh.close()
   })
 
+  // ---- backup round trip: a fresh device picks up where this one left off
+  await check('a backup file restores picks on a fresh device', async () => {
+    const myHeader = await page.locator('.app-header-sub').innerText()
+    const picked = myHeader.match(/(\d+) picked/)?.[1]
+    assert(Number(picked) > 0, `expected existing picks, header was "${myHeader}"`)
+
+    await page.getByRole('button', { name: 'Settings' }).click()
+    await page.waitForSelector('.sheet')
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { name: 'Back up now' }).click(),
+    ])
+    const backupPath = await download.path()
+    await page.locator('.scrim').click({ position: { x: 5, y: 5 } })
+    await page.waitForSelector('.sheet', { state: 'detached' })
+
+    // A brand-new browser context is a stand-in for a replacement phone.
+    const device2 = await browser.newContext({ viewport: { width: 390, height: 844 } })
+    const p2 = await device2.newPage()
+    await p2.goto(APP, { waitUntil: 'networkidle' })
+    await p2.waitForSelector('.session')
+    assert((await p2.locator('.app-header-sub').innerText()).includes('0 picked'),
+      'fresh device should start empty')
+
+    await p2.getByRole('button', { name: 'Settings' }).click()
+    await p2.waitForSelector('.sheet')
+    await p2.locator('.sheet input[type=file]').setInputFiles(backupPath)
+    await p2.waitForSelector('.toast')
+    await p2.waitForTimeout(400)
+    const header = await p2.locator('.app-header-sub').innerText()
+    assert(header.includes(`${picked} picked`), `after restore header was "${header}"`)
+    await device2.close()
+  })
+
   // ---- badge tier: warn, never block (SPEC §9.1) -----------------------
   await check('an out-of-tier session warns on add but is never hidden or blocked', async () => {
     await page.getByRole('tab', { name: 'Browse' }).click()

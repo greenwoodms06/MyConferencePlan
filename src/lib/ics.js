@@ -95,7 +95,9 @@ export function buildIcs(sessions, config, options = {}) {
       `SUMMARY:${escapeText(session.title)}`,
     )
     if (session.location) lines.push(`LOCATION:${escapeText(session.location)}`)
-    if (session.url) lines.push(`URL:${escapeText(session.url)}`)
+    // URL is a URI value (RFC 5545 sect. 3.3.13), not TEXT — escaping would
+    // corrupt any URL containing a comma.
+    if (session.url) lines.push(`URL:${session.url}`)
     const description = describe(session, picks.get(session.id))
     if (description) lines.push(`DESCRIPTION:${escapeText(description)}`)
     lines.push('END:VEVENT')

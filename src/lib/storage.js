@@ -41,6 +41,9 @@ function openDb() {
     request.onsuccess = () => resolve(request.result)
     request.onerror = () => reject(request.error)
   })
+  // A failed open (transient lock, private-mode quirk) must not be cached, or
+  // one bad moment disables storage until the next full reload.
+  dbPromise.catch(() => { dbPromise = null })
   return dbPromise
 }
 
@@ -155,11 +158,37 @@ export function markAutoBackup(now = Date.now()) {
   }
 }
 
+const BACKUP_KIND = 'myconferenceplan-backup'
+
 export async function exportBackup() {
   const journals = await listJournals()
   return JSON.stringify(
-    { kind: 'myconferenceplan-backup', exportedAt: new Date().toISOString(), journals },
+    { kind: BACKUP_KIND, exportedAt: new Date().toISOString(), journals },
     null,
     2,
   )
+}
+
+/**
+ * Restore journals from a backup file. Non-destructive: a stored journal is
+ * replaced only when the file's copy is NEWER (meta.updatedAt) — restoring an
+ * old backup can never clobber picks made since (SPEC sect. 1.5 in spirit).
+ * Imported columns and user-added conferences are untouched.
+ */
+export async function importBackup(raw) {
+  if (raw?.kind !== BACKUP_KIND || !Array.isArray(raw.journals)) {
+    throw new Error('Not a backup file from this app.')
+  }
+  let restored = 0
+  let skipped = 0
+  for (const journal of raw.journals) {
+    if (!journal?.conferenceId) { skipped++; continue }
+    const existing = await loadJournal(journal.conferenceId)
+    const incoming = Date.parse(journal.meta?.updatedAt ?? '') || 0
+    const current = Date.parse(existing?.meta?.updatedAt ?? '') || 0
+    if (existing && current >= incoming) { skipped++; continue }
+    await saveJournal(journal)
+    restored++
+  }
+  return { restored, skipped }
 }

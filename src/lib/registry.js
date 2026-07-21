@@ -30,10 +30,15 @@ export async function listConferences() {
     listUserConferences().catch(() => []),
   ])
   const bundled = (manifest.conferences ?? []).map((c) => ({ ...c, source: 'bundled' }))
-  const added = user.map((c) => ({
-    id: c.id, name: c.name, accent: c.accent, dateRange: c.dateRange,
-    location: c.location, dataVersion: c.dataVersion, source: 'user',
-  }))
+  // A user-added bundle can carry a bundled conference's id; the repo copy
+  // wins, so the id stays unambiguous (one journal, one dataset, one row).
+  const bundledIds = new Set(bundled.map((c) => c.id))
+  const added = user
+    .filter((c) => !bundledIds.has(c.id))
+    .map((c) => ({
+      id: c.id, name: c.name, accent: c.accent, dateRange: c.dateRange,
+      location: c.location, dataVersion: c.dataVersion, source: 'user',
+    }))
   return [...bundled, ...added]
 }
 

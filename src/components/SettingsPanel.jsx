@@ -1,10 +1,14 @@
+import { useRef } from 'react'
+
 /** Settings — bottom sheet (Companion design). Badge tier, display name, and an
  *  honest storage report (the journal holds hand-authored notes browsers can
  *  evict; telling the user beats silent data loss — SPEC §5.3). */
 export default function SettingsPanel({
-  config, journal, storage, theme, onSetTheme, onClose, onSetTier, onSetName, onBackup, onIcs,
+  config, journal, storage, theme, onSetTheme, onClose, onSetTier, onSetName,
+  onBackup, onRestore, onIcs,
 }) {
   const tier = journal.profile.accessTier
+  const restoreInput = useRef(null)
   return (
     <>
       <div className="scrim" onClick={onClose} />
@@ -52,8 +56,17 @@ export default function SettingsPanel({
 
         <div className="sheet-actions">
           <button className="btn-primary" onClick={onBackup}>Back up now</button>
+          {onRestore && (
+            <button className="btn-outline" onClick={() => restoreInput.current?.click()}>
+              Restore a backup…
+            </button>
+          )}
           {onIcs && <button className="btn-outline" onClick={onIcs}>Export .ics</button>}
         </div>
+        {onRestore && (
+          <input ref={restoreInput} type="file" accept="application/json,.json" hidden
+            onChange={(e) => { const f = e.target.files?.[0]; if (f) onRestore(f); e.target.value = '' }} />
+        )}
       </div>
     </>
   )

@@ -262,10 +262,12 @@ describe('dialogs and banners', () => {
     const html = renderToStaticMarkup(
       <SettingsPanel config={config} journal={journalWith([])}
         storage={{ supported: true, persisted: false, usage: 51200, quota: 1e9 }}
-        onClose={noop} onSetTier={noop} onSetName={noop} onBackup={noop} />,
+        onClose={noop} onSetTier={noop} onSetName={noop} onBackup={noop} onRestore={noop} />,
     )
     expect(html).toContain('not granted')
     expect(html).toContain('Back up now')
+    // A backup you cannot restore is not a durability story (SPEC §5.3).
+    expect(html).toContain('Restore a backup')
     for (const level of config.accessLevels) expect(html).toContain(level.label)
   })
 })

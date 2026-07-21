@@ -481,6 +481,7 @@ def main():
     report.append(f"Rebuilt {out_dir.parent}/index.json")
 
     text = "\n".join(report)
+    (out_dir / "import-report.txt").write_text(text + "\n", encoding="utf-8")
     print(text)
     return 0
 

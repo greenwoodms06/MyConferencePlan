@@ -8,7 +8,7 @@ import {
   setAccessTier, updatePick,
 } from './lib/journal.js'
 import {
-  downloadFile, exportBackup, loadColumns, loadJournal, markAutoBackup,
+  downloadFile, exportBackup, importBackup, loadColumns, loadJournal, markAutoBackup,
   saveColumns, saveJournal, shouldAutoBackup, storageReport,
 } from './lib/storage.js'
 
@@ -73,6 +73,13 @@ export default function App() {
     let cancelled = false
     setData(null)
     setJournal(null)
+    // Transient UI (open sheets, pending dialogs) is per-conference state;
+    // carrying it across a switch would show one conference's session over
+    // another's data.
+    setDetailId(null)
+    setShowReview(false)
+    setPendingImport(null)
+    setWarn(null)
     loadConference(entry)
       .then(({ config, sessions }) => {
         if (cancelled) return
@@ -172,9 +179,14 @@ export default function App() {
       return
     }
     const picks = new Map(journal.picks.map((p) => [p.id, p]))
-    const ics = buildIcs(pickedSessions, data.config, { picks, sequence: journal.picks.length })
+    // SEQUENCE must only ever grow (SPEC sect. 7): calendar clients ignore an
+    // update whose SEQUENCE is lower than the one they hold, so deriving it
+    // from the pick count would make exports after a removal silently inert.
+    const sequence = (journal.meta.icsSequence ?? 0) + 1
+    const ics = buildIcs(pickedSessions, data.config, { picks, sequence })
     downloadFile(`${data.config.conferenceId}.ics`, ics, 'text/calendar')
-  }, [pickedSessions, journal, data])
+    commit({ ...journal, meta: { ...journal.meta, icsSequence: sequence } })
+  }, [pickedSessions, journal, data, commit])
 
   const exportShare = useCallback((includeAnnotations) => {
     const share = buildShareFile(journal, data.config, { includeAnnotations })
@@ -221,6 +233,7 @@ export default function App() {
   }
 
   const { config, sessions } = data
+  const tierLabel = (id) => config.accessLevels?.find((l) => l.id === id)?.label ?? id
 
   return (
     <div className="app">
@@ -315,6 +328,20 @@ export default function App() {
             )
             markAutoBackup()
           }}
+          onRestore={async (file) => {
+            try {
+              const parsed = JSON.parse(await file.text())
+              const { restored, skipped } = await importBackup(parsed)
+              // The active conference's journal may just have been replaced.
+              const stored = await loadJournal(config.conferenceId)
+              if (stored) setJournal(stored)
+              setToast(restored
+                ? `Backup restored — ${restored} conference${restored === 1 ? '' : 's'} updated${skipped ? `, ${skipped} already current` : ''}.`
+                : 'Nothing to restore — your local picks are already newer.')
+            } catch (e) {
+              setToast(e?.message || "That file couldn't be read as a backup.")
+            }
+          }}
         />
       )}
 
@@ -347,7 +374,7 @@ export default function App() {
 
       {detailId && (() => {
         const s = sessionsById.get(detailId)
-        if (!s) { setDetailId(null); return null }
+        if (!s) return null
         const pick = journal.picks.find((p) => p.id === detailId)
         return (
           <DetailSheet
@@ -373,8 +400,8 @@ export default function App() {
           <div className="dialog" onClick={(e) => e.stopPropagation()}>
             <h2>Outside your badge tier</h2>
             <p className="dialog-meta" style={{ marginTop: 6, lineHeight: 1.5 }}>
-              “{warn.title}” requires {warn.access.join(' · ')}. Your badge is{' '}
-              {journal.profile.accessTier} — badges get upgraded and sessions open up,
+              “{warn.title}” requires {warn.access.map(tierLabel).join(' · ')}. Your badge is{' '}
+              {tierLabel(journal.profile.accessTier)} — badges get upgraded and sessions open up,
               so you can keep it on your list.
             </p>
             <div className="dialog-actions">
