@@ -21,6 +21,12 @@
   --accent-tint: #eef1fe;
   --accent-muted: #c3cdfb;
 
+  /* toast — inverse surface, so it pops against the page in BOTH themes.
+     Never colour it with --ink: that token flips with the theme and takes
+     the white text down with it. */
+  --toast-bg: #20242c;
+  --toast-ink: #ffffff;
+
   /* semantic */
   --warn: #b45309;
   --warn-bg: #fbbf2426;      /* amber @ 15% */
@@ -65,6 +71,8 @@
     --ink-3: #99a1af;
     --ink-4: #6c7482;
     --disabled: #39414d;
+    --toast-bg: #e8ebf1;
+    --toast-ink: #171b22;
     --accent: #7189ff;
     --accent-deep: #9aabff;
     --accent-tint: #1d2740;
@@ -93,6 +101,8 @@
   --ink-3: #99a1af;
   --ink-4: #6c7482;
   --disabled: #39414d;
+  --toast-bg: #e8ebf1;
+  --toast-ink: #171b22;
   --accent: #7189ff;
   --accent-deep: #9aabff;
   --accent-tint: #1d2740;
@@ -521,7 +531,8 @@ input::placeholder { color: var(--ink-4); }
 /* ── toast ─────────────────────────────────────────────────────── */
 .toast {
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-  background: var(--ink); color: #fff; font: 500 12.5px inherit; padding: 10px 16px;
+  background: var(--toast-bg); color: var(--toast-ink); font: 500 12.5px inherit;
+  padding: 10px 16px;
   border-radius: 12px; z-index: 40; max-width: 90vw; cursor: pointer;
   box-shadow: 0 6px 20px rgba(32, 36, 44, 0.3);
 }
