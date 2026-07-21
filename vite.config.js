@@ -14,6 +14,11 @@ export default defineConfig({
       registerType: 'autoUpdate', // SPEC sect. 8.1: force-update, never sit in `waiting`
       includeAssets: ['favicon.svg', 'icons/*.svg', 'icons/*.png'],
       manifest: {
+        // Explicit, stable app identity. Same-origin PWAs (this app vs. a
+        // root-scoped blog on username.github.io) are distinguished by id;
+        // without one it silently defaults to start_url, which would change
+        // identity if start_url ever did.
+        id: base,
         name: 'SessionSamba',
         short_name: 'SessionSamba',
         description: 'Plan your conference schedule offline.',
