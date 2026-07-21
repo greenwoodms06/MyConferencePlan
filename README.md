@@ -173,9 +173,8 @@ the notable one is that topic tags are seeded from titles only (54% coverage),
 because the SIGGRAPH source has no abstracts. Real enrichment means mining each
 session's URL.
 
-Not yet done: the change-review bottom sheet (the update banner still expands
-inline), and a pass on physical iOS/Android hardware (Chromium headless is not a
-substitute for real Safari).
+The full Companion design is adopted. Remaining: a pass on physical iOS/Android
+hardware (Chromium headless is not a substitute for real Safari).
 
 ## License
 

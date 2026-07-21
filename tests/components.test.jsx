@@ -6,6 +6,7 @@ import PickerView from '../src/components/PickerView.jsx'
 import ColumnsView from '../src/components/ColumnsView.jsx'
 import SessionCard from '../src/components/SessionCard.jsx'
 import ChangeBanner from '../src/components/ChangeBanner.jsx'
+import ChangeReviewSheet from '../src/components/ChangeReviewSheet.jsx'
 import ImportDialog from '../src/components/ImportDialog.jsx'
 import SettingsPanel from '../src/components/SettingsPanel.jsx'
 
@@ -199,23 +200,32 @@ describe('ColumnsView', () => {
 })
 
 describe('dialogs and banners', () => {
-  test('ChangeBanner reports moves and cancellations by impact', () => {
+  const changeFixture = () => {
     const session = sessions[0]
-    const changes = [
-      {
-        id: session.id, session, kind: 'changed',
-        changes: [{ field: 'start', from: '09:00', to: '11:30' }],
-      },
-      {
-        id: 'gone-id', session: null, kind: 'gone',
-        pick: { snapshot: { title: 'A Cancelled Session' } }, changes: [],
-      },
+    return [
+      { id: session.id, session, kind: 'changed', changes: [{ field: 'start', from: '09:00', to: '11:30' }, { field: 'location', from: 'Room A', to: 'Room B' }] },
+      { id: 'gone-id', session: null, kind: 'gone', pick: { snapshot: { title: 'A Cancelled Session' } }, changes: [] },
     ]
+  }
+
+  test('ChangeBanner is a slim impact summary that opens the review sheet', () => {
+    const html = renderToStaticMarkup(<ChangeBanner count={2} onReview={noop} />)
+    expect(html).toContain('Schedule updated — 2 of your picks changed')
+    expect(html).toContain('Review')
+  })
+
+  test('ChangeReviewSheet shows per-pick diffs, per-item + ack-all, and cancelled picks', () => {
     const html = renderToStaticMarkup(
-      <ChangeBanner changes={changes} onAcknowledge={noop} onRemoveGone={noop} />,
+      <ChangeReviewSheet changes={changeFixture()} onAckOne={noop} onAckAll={noop} onRemoveGone={noop} onClose={noop} />,
     )
-    expect(html).toContain('1 of your sessions changed')
-    expect(html).toContain('1 no longer in the schedule')
+    expect(html).toContain('Your picks changed')
+    expect(html).toContain(sessions[0].title)          // the moved pick
+    expect(html).toContain('Starts')                    // field-level diff label
+    expect(html).toContain('11:30')                     // new value
+    expect(html).toContain('Got it')                    // per-item acknowledge
+    expect(html).toContain('Acknowledge all')
+    expect(html).toContain('A Cancelled Session')       // gone pick, never dropped
+    expect(html).toContain('Remove from my picks')
   })
 
   test('ImportDialog offers new-column vs replace, and warns on overwrite', () => {

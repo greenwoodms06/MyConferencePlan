@@ -4,7 +4,8 @@ import { buildResolver, buildShareFile, resolveShareFile } from './lib/share.js'
 import { buildIcs } from './lib/ics.js'
 import { findConflicts } from './lib/overlap.js'
 import {
-  acknowledgeAll, addPick, detectChanges, newJournal, removePick, setAccessTier, updatePick,
+  acknowledgeAll, acknowledgeChange, addPick, detectChanges, newJournal, removePick,
+  setAccessTier, updatePick,
 } from './lib/journal.js'
 import {
   downloadFile, exportBackup, loadColumns, loadJournal, markAutoBackup,
@@ -17,6 +18,7 @@ import ConferenceSwitcher from './components/ConferenceSwitcher.jsx'
 import PickerView from './components/PickerView.jsx'
 import ColumnsView from './components/ColumnsView.jsx'
 import ChangeBanner from './components/ChangeBanner.jsx'
+import ChangeReviewSheet from './components/ChangeReviewSheet.jsx'
 import ImportDialog from './components/ImportDialog.jsx'
 import SettingsPanel from './components/SettingsPanel.jsx'
 import DetailSheet from './components/DetailSheet.jsx'
@@ -40,6 +42,7 @@ export default function App() {
   const [conferences, setConferences] = useState([])
   const [activeId, setActiveIdState] = useState(null)
   const [showSwitcher, setShowSwitcher] = useState(false)
+  const [showReview, setShowReview] = useState(false)
 
   useEffect(() => {
     if (!toast) return
@@ -249,11 +252,7 @@ export default function App() {
       </nav>
 
       {changes.length > 0 && (
-        <ChangeBanner
-          changes={changes}
-          onAcknowledge={() => commit(acknowledgeAll(journal, changes, config.dataVersion))}
-          onRemoveGone={(id) => commit(removePick(journal, id))}
-        />
+        <ChangeBanner count={changes.length} onReview={() => setShowReview(true)} />
       )}
 
       {view === 'picker' ? (
@@ -316,6 +315,22 @@ export default function App() {
             )
             markAutoBackup()
           }}
+        />
+      )}
+
+      {showReview && changes.length > 0 && (
+        <ChangeReviewSheet
+          changes={changes}
+          onAckOne={(change) => {
+            const next = change.session
+              ? acknowledgeChange(journal, change.id, change.session, config.dataVersion)
+              : removePick(journal, change.id)
+            commit(next)
+            if (changes.length <= 1) setShowReview(false)
+          }}
+          onAckAll={() => { commit(acknowledgeAll(journal, changes, config.dataVersion)); setShowReview(false) }}
+          onRemoveGone={(id) => { commit(removePick(journal, id)); if (changes.length <= 1) setShowReview(false) }}
+          onClose={() => setShowReview(false)}
         />
       )}
 

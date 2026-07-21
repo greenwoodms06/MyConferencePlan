@@ -253,6 +253,13 @@ input::placeholder { color: var(--ink-4); }
 .change-row ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
 .change-row li { font: 400 12.5px inherit; color: var(--ink-2); }
 .change-row s { color: var(--ink-4); }
+.change-field { color: var(--ink-4); display: inline-block; width: 48px; }
+.change-arrow { color: var(--ink-4); }
+.change-row > button {
+  margin-top: 10px; padding: 7px 13px; border: 1.5px solid var(--hairline);
+  border-radius: 9px; background: var(--card); font: 600 12px inherit; cursor: pointer; color: var(--ink);
+}
+.review-gone { margin: 0 0 4px; font: 400 12px/1.5 inherit; color: var(--ink-3); }
 .change-detail > button {
   width: 100%; margin-top: 4px; padding: 11px 0; border: none; border-radius: 12px;
   background: var(--accent); color: #fff; font: 600 13px inherit; cursor: pointer;
