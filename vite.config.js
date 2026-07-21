@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // GitHub Pages serves from /<repo>/. Override with BASE_PATH when the repo
 // name differs, or set it to '/' for a user/org page or a custom domain.
-const base = process.env.BASE_PATH ?? '/MyConferencePlan/'
+const base = process.env.BASE_PATH ?? '/OpenLineup/'
 
 export default defineConfig({
   base,
@@ -14,8 +14,8 @@ export default defineConfig({
       registerType: 'autoUpdate', // SPEC sect. 8.1: force-update, never sit in `waiting`
       includeAssets: ['icons/*.svg'],
       manifest: {
-        name: 'MyConferencePlan',
-        short_name: 'MyConfPlan',
+        name: 'OpenLineup',
+        short_name: 'OpenLineup',
         description: 'Plan your conference schedule offline.',
         theme_color: '#111827',
         background_color: '#ffffff',

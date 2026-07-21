@@ -1,5 +1,5 @@
 import { chromium } from 'playwright'
-const B='https://greenwoodms06.github.io/MyConferencePlan/'
+const B='https://greenwoodms06.github.io/OpenLineup/'
 const b=await chromium.launch()
 const p=await b.newPage({viewport:{width:402,height:860}})
 const errs=[]; p.on('pageerror',e=>errs.push(String(e)))

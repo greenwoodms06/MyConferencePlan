@@ -1,7 +1,8 @@
-# OpenConferencePlan
+# OpenLineup
 
 An offline-first conference schedule planner, and a **portable schedule format**
-any conference can adopt.
+any event can adopt. One name covers both: the app is OpenLineup, and the file
+format it reads is the OpenLineup format (`SPEC.md`).
 
 Pick sessions, see time conflicts, compare your day against your colleagues',
 and export to your calendar. No server, no accounts, no tracking. Everything

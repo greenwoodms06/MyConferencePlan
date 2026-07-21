@@ -7,10 +7,10 @@
  *  journal holds hand-authored notes that cannot be regenerated.
  */
 
-// Deliberately NOT renamed to match the app. This key identifies existing
-// user data on disk; changing it would orphan every saved journal — the exact
-// data-loss the whole design guards against (SPEC sect. 2.1 in spirit).
-const DB_NAME = 'openconferenceplan'
+// This key identifies user data on disk — renaming it orphans every saved
+// journal, so treat it as frozen. (It was last changed 2026-07-20, before any
+// real users existed, when the app was renamed to OpenLineup.)
+const DB_NAME = 'openlineup'
 const DB_VERSION = 2
 const STORE_JOURNALS = 'journals'       // one record per conference
 const STORE_COLUMNS = 'columns'         // imported colleagues, per conference
@@ -139,7 +139,7 @@ export function downloadFile(filename, contents, mime = 'application/json') {
  * which no browser evicts. This is the strongest durability story available
  * without a server (SPEC sect. 5.3).
  */
-const BACKUP_KEY = 'ocp:lastBackup'
+const BACKUP_KEY = 'ol:lastBackup'
 
 export function shouldAutoBackup(now = Date.now(), intervalMs = 12 * 60 * 60 * 1000) {
   try {
@@ -158,7 +158,7 @@ export function markAutoBackup(now = Date.now()) {
   }
 }
 
-const BACKUP_KIND = 'myconferenceplan-backup'
+const BACKUP_KIND = 'openlineup-backup'
 
 export async function exportBackup() {
   const journals = await listJournals()
